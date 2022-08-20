@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="AppClassLibraryDomain" namespace="AppClassLibraryDomain.model">
+	<class name="Usuario" table="usuarios" lazy="true">
+		<id name="Id" column="id" type="Int64">
+			<generator class="native"/>
+		</id>
+		<property name="Nome" column ="nome" type="String"/>
+		<property name="Email" column ="email" type="String" not-null="true"/>
+		<property name="Senha" column ="senha" type="String"/>
+		<property name="Ativo" column="ativo" type="Boolean" not-null="true"/>
+		<property name="DataOperacao" column="data_operacao" type="DateTimeOffset" not-null="true"/>
+		<property name="DataUltimoAcesso" column="data_ultimo_acesso" type="DateTimeOffset"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="AppClassLibraryDomain" namespace="AppClassLibraryDomain.model">
+	<class name="UsuarioFotoPerfil" table="usuarios_foto_perfil" lazy="true">
+		<id name="Id" column="id" type="Int64">
+			<generator class="native"/>
+		</id>
+		<property name="Nome" column ="nome" type="String"/>
+		<!--<one-to-one name="Usuario" class="Usuario"/>-->
+		<many-to-one name="Usuario" cascade="all-delete-orphan" lazy="proxy" column="usuario_id" unique="true" />
+	</class>
+</hibernate-mapping>
