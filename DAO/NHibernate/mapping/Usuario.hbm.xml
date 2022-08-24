@@ -8,7 +8,9 @@
 		<property name="Email" column ="email" type="String" not-null="true"/>
 		<property name="Senha" column ="senha" type="String"/>
 		<property name="Ativo" column="ativo" type="Boolean" not-null="true"/>
-		<property name="DataOperacao" column="data_operacao" type="DateTimeOffset" not-null="true"/>
+		<property name="DataCadastro" column="data_Cadastro" type="DateTimeOffset"/>
+		<property name="DataOperacao" column="data_operacao" type="DateTimeOffset"/>
 		<property name="DataUltimoAcesso" column="data_ultimo_acesso" type="DateTimeOffset"/>
+		<one-to-one name="UsuarioFotoPerfil" class="UsuarioFotoPerfil" property-ref="Usuario"/>
 	</class>
 </hibernate-mapping>

@@ -10,6 +10,8 @@ namespace AppClassLibraryDomain.model
         public virtual string Senha { get; set; }
         public virtual bool? Ativo { get; set; }
         public virtual DateTimeOffset? DataOperacao { get; set; }
+        public virtual DateTimeOffset? DataCadastro { get; set; }
         public virtual DateTimeOffset? DataUltimoAcesso { get; set; }
+        public virtual UsuarioFotoPerfil UsuarioFotoPerfil{ get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace AppClassLibraryDomain.DAO
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
                     var resultSetToModel = new ResultSetToModel<Usuario>();
-                    usuario = resultSetToModel.ToModel(sqlDataReader, true);
+                    usuario.Id = resultSetToModel.ToModel(sqlDataReader, true).Id;
 
                     sqlConnection.Close();
                 }
@@ -220,12 +220,14 @@ namespace AppClassLibraryDomain.DAO
                     stringBuilder.Append("UPDATE usuarios ");
                     stringBuilder.Append("SET ");
                     stringBuilder.Append("Nome = ISNULL(@nome, Nome), ");
+                    stringBuilder.Append("Email = ISNULL(@email, Email), ");
                     stringBuilder.Append("Senha = ISNULL(@senha, Senha), ");
                     stringBuilder.Append("Ativo = ISNULL(@ativo, Ativo) ");
                     stringBuilder.Append("WHERE Id = @id ");
                     using (var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection))
                     {
                         sqlCommand.Parameters.AddWithValue("@nome", usuario.Nome.Equals(null) ? null : usuario.Nome);
+                        sqlCommand.Parameters.AddWithValue("@email", usuario.Email.Equals(null) ? null : usuario.Email);
                         sqlCommand.Parameters.AddWithValue("@senha", usuario.Senha.Equals(null) ? null : usuario.Senha);
                         sqlCommand.Parameters.AddWithValue("@ativo", usuario.Ativo.Equals(null) ? null : usuario.Ativo);
                         sqlCommand.Parameters.AddWithValue("@id", usuario.Id);

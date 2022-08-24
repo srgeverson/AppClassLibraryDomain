@@ -62,5 +62,33 @@ namespace AppClassLibraryDomain.DAO.NHibernate
                 return usuario;
             }
         }
+
+        public UsuarioFotoPerfil CadastrarFotoUsuario(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            using (var session = SessionFactory.OpenSession)
+                usuarioFotoPerfil.Id = Int64.Parse(session.Save(usuarioFotoPerfil).ToString());
+            return usuarioFotoPerfil;
+        }
+
+        public UsuarioFotoPerfil AtualizarFotoUsuario(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            using (var session = SessionFactory.OpenSession)
+            {
+                //usuarioFotoPerfil.DataOperacao = DateTimeOffset.UtcNow;
+                session.Update(usuarioFotoPerfil);
+                session.Flush();
+                return usuarioFotoPerfil;
+            }
+        }
+
+        public UsuarioFotoPerfil ApagarFotoUsuario(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            using (var session = SessionFactory.OpenSession)
+            {
+                session.Delete(usuarioFotoPerfil);
+                session.Flush();
+                return usuarioFotoPerfil;
+            }
+        }
     }
 }
