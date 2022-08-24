@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using AppClassLibraryDomain.DAO;
-using AppClassLibraryDomain.DAO.EntityFramework;
 using AppClassLibraryDomain.DAO.NHibernate;
 using AppClassLibraryDomain.DAO.NHibernate.EntityFramework;
 using AppClassLibraryDomain.model;
@@ -32,10 +31,35 @@ namespace AppClassLibraryDomain.service
                 usuarioEntityFrameworkDAO = new UsuarioEntityFrameworkDAO();
         }
 
-        public IList<Usuario> GetUsuarios()
+        public bool ValidarSenha(string senhaTexto, string senhaEncriptada)
         {
-           
-            return usuarioNHibernateDAO.GetUsuarios();
+            return BCryptNet.Verify(senhaTexto, senhaEncriptada);
+        }
+
+        #region -> Início Entity Framework
+
+        public bool ApagarUsuarioEntity(ModelContex.Usuario usuario)
+        {
+            return usuarioEntityFrameworkDAO.ApagarUsuario(usuario);
+        }
+
+        public ModelContex.Usuario AtualizarEntity(ModelContex.Usuario usuario)
+        {
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioEntityFrameworkDAO.AtualizarUsuario(usuario);
+        }
+
+        public ModelContex.Usuario BuscarPorEmailEntity(string email)
+        {
+            return usuarioEntityFrameworkDAO.BuscarUsuarioPorEmail(email);
+        }
+
+        public ModelContex.Usuario CadastrarEntity(ModelContex.Usuario usuario)
+        {
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioEntityFrameworkDAO.CadastrarUsuario(usuario);
         }
 
         public IList<ModelContex.Usuario> GetUsuariosEntity()
@@ -43,10 +67,20 @@ namespace AppClassLibraryDomain.service
             return usuarioEntityFrameworkDAO.GetUsuarios();
         }
 
-        public bool AlterarPorId(Usuario usuario, long id)
+        public ModelContex.Usuario GetUsuarioPorIdEntity(int id)
         {
-            usuario.Id = id;
-            return usuarioDAO.Update(usuario);
+            return usuarioEntityFrameworkDAO.BuscarUsuarioPorId(id);
+        }
+
+        #endregion -> Fim Entity Framework
+
+        #region -> Início NHibernate
+
+        public Usuario AtualizarNHibernate(Usuario usuario)
+        {
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioNHibernateDAO.AtualizarUsuario(usuario);
         }
 
         public Usuario ApagarUsuarioNHibernate(Usuario usuario)
@@ -54,23 +88,6 @@ namespace AppClassLibraryDomain.service
             return usuarioNHibernateDAO.ApagarUsuario(usuario);
         }
 
-        public bool ApagarPorId(Int32 id)
-        {
-            return usuarioDAO.DeletePorId(id);
-        }
-        public Usuario BuscarPorId(Int32 id)
-        {
-            return usuarioDAO.SelectPorId(id);
-        }
-
-        public Usuario BuscarPorNome(string nome)
-        {
-            return usuarioDAO.SelectPorNome(nome);
-        }
-        public Usuario BuscarPorEmail(string nome)
-        {
-            return usuarioDAO.SelectPorEmail(nome);
-        }
         public Usuario BuscarPorIdNHibernate(Int64 id)
         {
             return usuarioNHibernateDAO.BuscarUsuarioPorId(id);
@@ -81,38 +98,80 @@ namespace AppClassLibraryDomain.service
             return usuarioNHibernateDAO.BuscarUsuarioPorEmail(email);
         }
 
-        public Usuario Cadastrar(Usuario usuario)
-        {
-            usuario.Ativo = true;
-            usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioDAO.Insert(usuario);
-        }
-
         public Usuario CadastrarNHibernate(Usuario usuario)
         {
-            usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
             return usuarioNHibernateDAO.CadastrarUsuario(usuario);
         }
 
-        public bool ValidarSenha(string senhaTexto, string senhaEncriptada)
+        public IList<Usuario> GetUsuariosNHibernate()
         {
-            return BCryptNet.Verify(senhaTexto, senhaEncriptada);
+            return usuarioNHibernateDAO.GetUsuarios();
         }
 
-        public List<Usuario> Todos()
+        public UsuarioFotoPerfil CadastrarFotoNHibernate(UsuarioFotoPerfil usuarioFotoPerfil)
         {
-            return usuarioDAO.Select();
+            return usuarioNHibernateDAO.CadastrarFotoUsuario(usuarioFotoPerfil);
+        }
+        public UsuarioFotoPerfil ApagarFotoUsuarioNHibernate(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            return usuarioNHibernateDAO.ApagarFotoUsuario(usuarioFotoPerfil);
+        }
+        public UsuarioFotoPerfil AtualizarFotoNHibernate(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            return usuarioNHibernateDAO.AtualizarFotoUsuario(usuarioFotoPerfil);
         }
 
-        public bool AlterarPorId(int? id)
+        #endregion -> Início NHibernate
+
+        #region -> Início SQL
+
+        public bool ApagarPorIdSQL(long id)
+        {
+            return usuarioDAO.DeletePorId(Convert.ToInt32(id.ToString()));
+        }
+
+        public bool AlterarPorIdSQL(Usuario usuario, long id)
+        {
+            usuario.Id = id;
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioDAO.Update(usuario);
+        }
+
+        public bool AlterarPorIdSQL(int? id)
         {
             return usuarioDAO.UpdateDataUltimoAcesso(id);
         }
 
-        public object AtualizarNHibernate(Usuario usuario)
+        public Usuario BuscarPorIdSQL(Int32 id)
         {
-            usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioNHibernateDAO.AtualizarUsuario(usuario);
+            return usuarioDAO.SelectPorId(id);
         }
+
+        public Usuario BuscarPorNomeSQL(string nome)
+        {
+            return usuarioDAO.SelectPorNome(nome);
+        }
+        public Usuario BuscarPorEmailSQL(string nome)
+        {
+            return usuarioDAO.SelectPorEmail(nome);
+        }
+
+        public Usuario CadastrarSQL(Usuario usuario)
+        {
+            usuario.Ativo = true;
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioDAO.Insert(usuario);
+        }
+
+        public IList<Usuario> GetUsuariosSQL()
+        {
+            return usuarioDAO.Select();
+        }
+
+        #endregion -> Fim SQL
     }
 }

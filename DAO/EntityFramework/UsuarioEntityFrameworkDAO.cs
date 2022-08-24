@@ -1,22 +1,21 @@
 ﻿using AppClassLibraryDomain.DAO.EntityFramework;
-using AppClassLibraryDomain.model;
-using NHibernate;
+using AppClassLibraryDomain.model.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using ModelContex = AppClassLibraryDomain.model.EntityFramework;
 
 
 namespace AppClassLibraryDomain.DAO.NHibernate.EntityFramework
 {
     public class UsuarioEntityFrameworkDAO
     {
-        public IList<ModelContex.Usuario> GetUsuarios()
+        public IList<Usuario> GetUsuarios()
         {
-            return new ContextFactory().Usuarios.Select(usuario => usuario).ToList();   
+            return new ContextFactory().Usuarios.ToList();
         }
 
-        public ModelContex.Usuario CadastrarUsuario(ModelContex.Usuario usuario)
+        public Usuario CadastrarUsuario(Usuario usuario)
         {
             using (var context = new ContextFactory())
             {
@@ -26,24 +25,37 @@ namespace AppClassLibraryDomain.DAO.NHibernate.EntityFramework
             }
         }
 
-        public ModelContex.Usuario BuscarUsuarioPorId(int id)
+        public Usuario BuscarUsuarioPorId(int id)
         {
             using (var context = new ContextFactory())
                 return context.Usuarios.Find(id);
         }
-        public ModelContex.Usuario ApagarUsuario(Usuario usuario)
+        public bool ApagarUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
+            using (var context = new ContextFactory())
+            {
+                context.Usuarios.Attach(usuario);
+                context.Usuarios.Remove(usuario);
+                context.SaveChanges();
+                return true;
+            }
         }
 
-        public ModelContex.Usuario BuscarUsuarioPorEmail(string email)
+        public Usuario BuscarUsuarioPorEmail(string email)
         {
-            throw new NotImplementedException();
+            using (var context = new ContextFactory())
+                return context.Usuarios.Where(usuario => usuario.Email.Equals(email)).FirstOrDefault();
         }
 
         public Usuario AtualizarUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
+            using (var context = new ContextFactory())
+            {
+                context.Usuarios.Attach(usuario);
+                context.Entry(usuario).State = EntityState.Modified;
+                var id = context.SaveChanges();
+                return BuscarUsuarioPorId(id);
+            }
         }
     }
 }

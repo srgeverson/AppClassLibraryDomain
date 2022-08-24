@@ -4,8 +4,10 @@
 		<id name="Id" column="id" type="Int64">
 			<generator class="native"/>
 		</id>
-		<property name="Nome" column ="nome" type="String"/>
-		<!--<one-to-one name="Usuario" class="Usuario"/>-->
-		<many-to-one name="Usuario" cascade="all-delete-orphan" lazy="proxy" column="usuario_id" unique="true" />
+		<property name="Nome" column ="nome" type="String" length="50"/>
+		<property name="MimeType" column ="mime_type" type="String" length="50"/>
+		<property name="Caminho" column ="caminho" type="String"  length="255"/>
+		<!--<property name="Arquivo" column ="arquivo" type="byte[]" />-->
+		<many-to-one name="Usuario" column="usuario_id"  class="Usuario" unique="true" />
 	</class>
 </hibernate-mapping>

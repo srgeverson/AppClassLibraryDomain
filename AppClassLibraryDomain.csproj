@@ -101,6 +101,7 @@
     <Compile Include="model\EntityFramework\Usuario.cs" />
     <Compile Include="model\Permissao.cs" />
     <Compile Include="model\Usuario.cs" />
+    <Compile Include="model\UsuarioFotoPerfil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="service\PermissaoService.cs" />
     <Compile Include="service\UsuarioService.cs" />
@@ -108,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DAO\NHibernate\mapping\Usuario.hbm.xml" />
+    <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioFotoPerfil.hbm.xml" />
     <Content Include="DDL\create_database.sql" />
     <Content Include="DDL\create_table_permissoes.sql" />
     <Content Include="DDL\create_table_usuarios.sql" />
@@ -131,7 +133,7 @@
   </Target>
   <Import Project="..\WindowsForms\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\WindowsForms\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <ItemGroup>
+  <ItemGroup>
     <None Include=".editorconfig" Link=".editorconfig" />
     <None Include="README.md">
       <Pack>True</Pack>
