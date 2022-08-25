@@ -113,6 +113,7 @@
     <Content Include="DDL\create_database.sql" />
     <Content Include="DDL\create_table_permissoes.sql" />
     <Content Include="DDL\create_table_usuarios.sql" />
+    <Content Include="DDL\create_table_usuarios_foto_perfil.sql" />
     <Content Include="DDL\create_table_usuarios_permissoes.sql" />
     <Content Include="DDL\create_user_database.sql" />
     <Content Include="DDL\insert_10_usuarios.sql" />

@@ -7,7 +7,7 @@
 		<property name="Nome" column ="nome" type="String" length="50"/>
 		<property name="MimeType" column ="mime_type" type="String" length="50"/>
 		<property name="Caminho" column ="caminho" type="String"  length="255"/>
-		<!--<property name="Arquivo" column ="arquivo" type="byte[]" />-->
+		<property name="Arquivo" column ="arquivo" type="BinaryBlob" />
 		<many-to-one name="Usuario" column="usuario_id"  class="Usuario" unique="true" />
 	</class>
 </hibernate-mapping>
