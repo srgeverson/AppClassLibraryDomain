@@ -12,5 +12,5 @@ CREATE TABLE [dbo].[usuarios_foto_perfil]
 	[nome]           [varchar](50) NULL,
 	[mime_type]      [varchar](50) NULL,
 	[caminho] [varchar](255) NULL,
-	[arquivo] [VARBINARY] NULL  
+	[arquivo] [VARBINARY](MAX) NULL  
 );
