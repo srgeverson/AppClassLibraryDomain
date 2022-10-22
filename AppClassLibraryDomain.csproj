@@ -113,8 +113,11 @@
     <Compile Include="utils\ResultSetToModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LICENSE.txt" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Usuario.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioFotoPerfil.hbm.xml" />
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="DDL\create_database.sql" />
     <Content Include="DDL\create_table_permissoes.sql" />
     <Content Include="DDL\create_table_usuarios.sql" />
