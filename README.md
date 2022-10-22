@@ -36,6 +36,20 @@ $ NHibernate 5.3.12
 
 ```
 
+```bash
+# Nuget.Org
+$ https://api.nuget.org/v3/index.json
+
+# Windows Temp
+$ C:\Windows\Temp
+
+# SDKs
+$ C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+# Packages
+$ C:\Users\geverson\.nuget\packages
+```
+
 ## 👨‍💻 Equipe de Desenvolvimento
 
 * **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/srgeverson/)

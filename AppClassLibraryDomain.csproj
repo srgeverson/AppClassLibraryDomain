@@ -92,17 +92,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\ConexaoDAO.cs" />
+    <Compile Include="DAO\ContatoDAO.cs" />
     <Compile Include="DAO\EntityFramework\ContextFactory.cs" />
     <Compile Include="DAO\EntityFramework\UsuarioEntityFrameworkDAO.cs" />
+    <Compile Include="DAO\IGenericDAO.cs" />
     <Compile Include="DAO\NHibernate\SessionFactory.cs" />
     <Compile Include="DAO\NHibernate\UsuarioNHibernateDAO.cs" />
     <Compile Include="DAO\PermissaoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="model\Contato.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
     <Compile Include="model\Permissao.cs" />
     <Compile Include="model\Usuario.cs" />
     <Compile Include="model\UsuarioFotoPerfil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service\IContatoService.cs" />
+    <Compile Include="service\implementations\ContatoService.cs" />
     <Compile Include="service\PermissaoService.cs" />
     <Compile Include="service\UsuarioService.cs" />
     <Compile Include="utils\ResultSetToModel.cs" />
