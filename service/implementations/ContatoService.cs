@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using AppClassLibraryDomain.domain.DAO;
+using AppClassLibraryDomain.DAO;
 using AppClassLibraryDomain.model;
 
 namespace AppClassLibraryDomain.service.implementations
 {
     public class ContatoService : IContatoService
     {
-        private IContatoDAO contatoDAO = new ContatoDAO();
+        private IContatoDAO contatoDAO;
 
         public IContatoDAO ContatoDAO { set => contatoDAO = value; }
 
@@ -29,7 +29,7 @@ namespace AppClassLibraryDomain.service.implementations
         {
             try
             {
-                if (!contatoDAO.UpdateByObject(contato))
+                if (!contatoDAO.UpdateById(contato))
                     throw new Exception("Nenhum dado foi afetado.");
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace AppClassLibraryDomain.service.implementations
         {
             try
             {
-                return contatoDAO.SelectByObject(contato);
+                return contatoDAO.SelectByContainsProperties(contato);
             }
             catch (Exception ex)
             {

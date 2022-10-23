@@ -12,16 +12,16 @@ namespace AppClassLibraryDomain.DAO
     /// </summary>
     public class PermissaoDAO
     {
-        public PermissaoDAO()
-        {
-        }
+        private ConnectionFactoryDAO connectionFactoryDAO;
+
+        public ConnectionFactoryDAO ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
 
         public List<Permissao> SelectByNomeUsuario(string nomeUsuario)
         {
             try
             {
                 var permissaos = new List<Permissao>();
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();
@@ -49,7 +49,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 var permissaos = new List<Permissao>();
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();
@@ -77,7 +77,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 var permissaos = new List<Permissao>();
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();

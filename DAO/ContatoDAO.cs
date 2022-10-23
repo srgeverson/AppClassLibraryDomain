@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using AppClassLibraryDomain.DAO;
 using AppClassLibraryDomain.utils;
 using AppClassLibraryDomain.model;
 
-namespace AppClassLibraryDomain.domain.DAO
+namespace AppClassLibraryDomain.DAO
 {
     #region Inteface
     /// <summary>
@@ -22,12 +20,16 @@ namespace AppClassLibraryDomain.domain.DAO
     /// </summary>
     public class ContatoDAO : IContatoDAO
     {
+        private ConnectionFactoryDAO connectionFactoryDAO;
+
+        public ConnectionFactoryDAO ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
+
         public bool DeleteById(int id)
         {
             try
             {
                 var contatoRemovido = false;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -47,16 +49,11 @@ namespace AppClassLibraryDomain.domain.DAO
             }
         }
 
-        public bool DeleteByObject(Contato contato)
-        {
-            throw new NotImplementedException();
-        }
-
         public Contato Insert(Contato contato)
         {
             try
             {
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -70,6 +67,30 @@ namespace AppClassLibraryDomain.domain.DAO
                     //sqlCommand.Parameters.AddWithValue("@sobre_nome", string.IsNullOrEmpty(contato.SobreNome) ? DBNull.Value : contato.SobreNome);
                     //sqlCommand.Parameters.AddWithValue("@email", string.IsNullOrEmpty(contato.Email) ? DBNull.Value : contato.Email);
                     //sqlCommand.Parameters.AddWithValue("@telefone", string.IsNullOrEmpty(contato.Telefone) ? DBNull.Value : contato.Telefone);
+                    if (contato.Nome == null)
+                        sqlCommand.Parameters.AddWithValue("@nome", DBNull.Value);
+                    else
+                        sqlCommand.Parameters.AddWithValue("@nome", contato.Nome);
+
+                    if (contato.SobreNome == null)
+                        sqlCommand.Parameters.AddWithValue("@sobre_nome", DBNull.Value);
+                    else
+                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.SobreNome);
+
+                    if (contato.Email == null)
+                        sqlCommand.Parameters.AddWithValue("@email", DBNull.Value);
+                    else
+                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Email);
+
+                    if (contato.Telefone == null)
+                        sqlCommand.Parameters.AddWithValue("@telefone", DBNull.Value);
+                    else
+                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Telefone);
+
+                    if (contato.Id == null)
+                        sqlCommand.Parameters.AddWithValue("@id", contato.Id);
+                    else
+                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Id);
 
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
@@ -91,7 +112,7 @@ namespace AppClassLibraryDomain.domain.DAO
             try
             {
                 IList<Contato> contatos = null;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -116,7 +137,7 @@ namespace AppClassLibraryDomain.domain.DAO
             try
             {
                 Contato contato = null;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -142,20 +163,20 @@ namespace AppClassLibraryDomain.domain.DAO
             try
             {
                 IList<Contato> contatos = null;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
                     var stringBuilder = new StringBuilder();
                     stringBuilder.Append("SELECT c.* FROM contatos AS c WHERE 1 = 1 ");
                     if (contato.Id != null)
-                        stringBuilder.Append(string.Format("AND c.id LIKE '%{0}%' ", contato.Id));
+                        stringBuilder.Append(string.Format("OR c.id LIKE '%{0}%' ", contato.Id));
                     if (contato.Nome != null)
-                        stringBuilder.Append(string.Format("AND c.nome = '%{0}%' ", contato.Nome));
+                        stringBuilder.Append(string.Format("OR c.nome = '%{0}%' ", contato.Nome));
                     if (contato.SobreNome != null)
-                        stringBuilder.Append(string.Format("AND c.sobre_nome = '%{0}%' ", contato.SobreNome));
+                        stringBuilder.Append(string.Format("OR c.sobre_nome = '%{0}%' ", contato.SobreNome));
                     if (contato.Telefone != null)
-                        stringBuilder.Append(string.Format("AND c.telefone = '%{0}%' ", contato.Telefone));
+                        stringBuilder.Append(string.Format("OR c.telefone = '%{0}%' ", contato.Telefone));
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
 
                     using (var sqlDataReader = sqlCommand.ExecuteReader())
@@ -177,13 +198,13 @@ namespace AppClassLibraryDomain.domain.DAO
             throw new NotImplementedException();
         }
 
-        public bool UpdateById(int id)
+        public bool UpdateById(Contato contato)
         {
             try
             {
                 var contatoAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -197,30 +218,30 @@ namespace AppClassLibraryDomain.domain.DAO
                     stringBuilder.Append("WHERE id = @id ");
                     using (var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection))
                     {
-                        //if (contato.Nome == null)
-                        //    sqlCommand.Parameters.AddWithValue("@nome", DBNull.Value);
-                        //else
-                        //    sqlCommand.Parameters.AddWithValue("@nome", contato.Nome);
+                        if (contato.Nome == null)
+                            sqlCommand.Parameters.AddWithValue("@nome", DBNull.Value);
+                        else
+                            sqlCommand.Parameters.AddWithValue("@nome", contato.Nome);
 
-                        //if (contato.SobreNome == null)
-                        //    sqlCommand.Parameters.AddWithValue("@sobre_nome", DBNull.Value);
-                        //else
-                        //    sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.SobreNome);
+                        if (contato.SobreNome == null)
+                            sqlCommand.Parameters.AddWithValue("@sobre_nome", DBNull.Value);
+                        else
+                            sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.SobreNome);
 
-                        //if (contato.Email == null)
-                        //    sqlCommand.Parameters.AddWithValue("@email", DBNull.Value);
-                        //else
-                        //    sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Email);
+                        if (contato.Email == null)
+                            sqlCommand.Parameters.AddWithValue("@email", DBNull.Value);
+                        else
+                            sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Email);
 
-                        //if (contato.Telefone == null)
-                        //    sqlCommand.Parameters.AddWithValue("@telefone", DBNull.Value);
-                        //else
-                        //    sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Telefone);
+                        if (contato.Telefone == null)
+                            sqlCommand.Parameters.AddWithValue("@telefone", DBNull.Value);
+                        else
+                            sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Telefone);
 
-                        //if (contato.Id == null)
-                        //    sqlCommand.Parameters.AddWithValue("@id", contato.Id);
-                        //else
-                        //    sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Id);
+                        if (contato.Id == null)
+                            sqlCommand.Parameters.AddWithValue("@id", contato.Id);
+                        else
+                            sqlCommand.Parameters.AddWithValue("@id", contato.Id);
 
                         var sqlDataReader = sqlCommand.ExecuteReader();
                         contatoAtualizado = sqlDataReader.RecordsAffected > 0;
@@ -240,7 +261,7 @@ namespace AppClassLibraryDomain.domain.DAO
             {
                 var contatoAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 

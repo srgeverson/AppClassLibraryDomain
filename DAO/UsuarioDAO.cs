@@ -7,21 +7,34 @@ using System.Data.SqlClient;
 
 namespace AppClassLibraryDomain.DAO
 {
+    #region Inteface
+    /// <summary>
+    /// Inteface de persistência de objetos usuarios
+    /// </summary>
+    public interface IUsuarioDAO : IGenericDAO<Usuario, long?>
+    {
+        bool UpdateDataUltimoAcessoById(int? id);
+        Usuario SelectByNome(string email);
+        Usuario SelectByEmail(string email);
+    }
+    #endregion
+
+    #region Class
     /// <summary>
     /// Classe responsável por consultar os registros relacionados à tabela usuarios.
     /// </summary>
-    public class UsuarioDAO
+    public class UsuarioDAO : IUsuarioDAO
     {
-        public UsuarioDAO()
-        {
-        }
+        private ConnectionFactoryDAO connectionFactoryDAO;
 
-        public bool DeletePorId(int id)
+        public ConnectionFactoryDAO ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
+
+        public bool DeleteById(long? id)
         {
             try
             {
                 var usuarioRemovido = false;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -45,7 +58,7 @@ namespace AppClassLibraryDomain.DAO
         {
             try
             {
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -75,44 +88,12 @@ namespace AppClassLibraryDomain.DAO
             }
         }
 
-        internal bool UpdateDataUltimoAcesso(int? id)
-        {
-            try
-            {
-                var usuarioAtualizado = false;
-
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
-                {
-                    sqlConnection.Open();
-
-                    var stringBuilder = new StringBuilder();
-                    stringBuilder.Append("UPDATE usuarios ");
-                    stringBuilder.Append("SET ");
-                    stringBuilder.Append("data_ultimo_acesso = GETDATE() ");
-                    stringBuilder.Append("WHERE Id = @id ");
-                    using (var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection))
-                    {
-                        sqlCommand.Parameters.AddWithValue("@id",id);
-
-                        var sqlDataReader = sqlCommand.ExecuteReader();
-                        usuarioAtualizado = sqlDataReader.RecordsAffected > 0;
-                    }
-                }
-                return usuarioAtualizado;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
-            }
-
-        }
-
-        public List<Usuario> Select()
+        public IList<Usuario> SelectAll()
         {
             try
             {
                 var usuarios = new List<Usuario>();
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
                     var sqlCommand = new SqlCommand("SELECT * FROM usuarios;", sqlConnection);
@@ -131,12 +112,42 @@ namespace AppClassLibraryDomain.DAO
             }
         }
 
-        public Usuario SelectPorId(int id)
+        public IList<Usuario> SelectByContainsProperties(Usuario instanceObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario SelectByEmail(string email)
         {
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                {
+                    sqlConnection.Open();
+                    using (var sqlCommand = new SqlCommand("SELECT u.* FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@email", email);
+
+                        var sqlDataReader = sqlCommand.ExecuteReader();
+                        var resultSetToModel = new ResultSetToModel<Usuario>();
+                        usuario = resultSetToModel.ToModel(sqlDataReader, true);
+                    }
+                }
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+            }
+        }
+
+        public Usuario SelectById(long? id)
+        {
+            try
+            {
+                Usuario usuario = null;
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -157,12 +168,12 @@ namespace AppClassLibraryDomain.DAO
             }
         }
 
-        public Usuario SelectPorNome(string nome)
+        public Usuario SelectByNome(string nome)
         {
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
                     using (var sqlCommand = new SqlCommand("SELECT * FROM usuarios AS u WHERE u.Nome = @nome;", sqlConnection))
@@ -181,38 +192,19 @@ namespace AppClassLibraryDomain.DAO
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
-        public Usuario SelectPorEmail(string email)
-        {
-            try
-            {
-                Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
-                {
-                    sqlConnection.Open();
-                    using (var sqlCommand = new SqlCommand("SELECT u.* FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
-                    {
-                        sqlCommand.Parameters.AddWithValue("@email", email);
 
-                        var sqlDataReader = sqlCommand.ExecuteReader();
-                        var resultSetToModel = new ResultSetToModel<Usuario>();
-                        usuario = resultSetToModel.ToModel(sqlDataReader, true);
-                    }
-                }
-                return usuario;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
-            }
+        public IList<Usuario> SelectByObject(Usuario instanceObject)
+        {
+            throw new NotImplementedException();
         }
 
-        public bool Update(Usuario usuario)
+        public bool UpdateById(Usuario usuario)
         {
             try
             {
                 var usuarioAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
                 {
                     sqlConnection.Open();
 
@@ -243,5 +235,37 @@ namespace AppClassLibraryDomain.DAO
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
+
+        public bool UpdateDataUltimoAcessoById(int? id)
+        {
+            try
+            {
+                var usuarioAtualizado = false;
+
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                {
+                    sqlConnection.Open();
+
+                    var stringBuilder = new StringBuilder();
+                    stringBuilder.Append("UPDATE usuarios ");
+                    stringBuilder.Append("SET ");
+                    stringBuilder.Append("data_ultimo_acesso = GETDATE() ");
+                    stringBuilder.Append("WHERE Id = @id ");
+                    using (var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@id", id);
+
+                        var sqlDataReader = sqlCommand.ExecuteReader();
+                        usuarioAtualizado = sqlDataReader.RecordsAffected > 0;
+                    }
+                }
+                return usuarioAtualizado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+            }
+        }
     }
+    #endregion
 }

@@ -91,7 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\ConexaoDAO.cs" />
+    <Compile Include="DAO\ConnectionFactoryDAO.cs" />
     <Compile Include="DAO\ContatoDAO.cs" />
     <Compile Include="DAO\EntityFramework\ContextFactory.cs" />
     <Compile Include="DAO\EntityFramework\UsuarioEntityFrameworkDAO.cs" />

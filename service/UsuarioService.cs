@@ -129,7 +129,7 @@ namespace AppClassLibraryDomain.service
 
         public bool ApagarPorIdSQL(long id)
         {
-            return usuarioDAO.DeletePorId(Convert.ToInt32(id.ToString()));
+            return usuarioDAO.DeleteById(Convert.ToInt32(id.ToString()));
         }
 
         public bool AlterarPorIdSQL(Usuario usuario, long id)
@@ -137,26 +137,26 @@ namespace AppClassLibraryDomain.service
             usuario.Id = id;
             if (!string.IsNullOrEmpty(usuario.Senha))
                 usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioDAO.Update(usuario);
+            return usuarioDAO.UpdateById(usuario);
         }
 
         public bool AlterarPorIdSQL(int? id)
         {
-            return usuarioDAO.UpdateDataUltimoAcesso(id);
+            return usuarioDAO.UpdateDataUltimoAcessoById(id);
         }
 
         public Usuario BuscarPorIdSQL(Int32 id)
         {
-            return usuarioDAO.SelectPorId(id);
+            return usuarioDAO.SelectById(id);
         }
 
         public Usuario BuscarPorNomeSQL(string nome)
         {
-            return usuarioDAO.SelectPorNome(nome);
+            return usuarioDAO.SelectByNome(nome);
         }
         public Usuario BuscarPorEmailSQL(string nome)
         {
-            return usuarioDAO.SelectPorEmail(nome);
+            return usuarioDAO.SelectByEmail(nome);
         }
 
         public Usuario CadastrarSQL(Usuario usuario)
@@ -169,7 +169,7 @@ namespace AppClassLibraryDomain.service
 
         public IList<Usuario> GetUsuariosSQL()
         {
-            return usuarioDAO.Select();
+            return usuarioDAO.SelectAll();
         }
 
         #endregion -> Fim SQL

@@ -6,8 +6,6 @@ namespace AppClassLibraryDomain.DAO
     {
         bool DeleteById(K id);
 
-        bool DeleteByObject(T instanceObject);
-
         T Insert(T instanceObject);
         
         IList<T> SelectAll();
@@ -16,10 +14,6 @@ namespace AppClassLibraryDomain.DAO
         
         T SelectById(K id);
        
-        IList<T> SelectByObject(T instanceObject);
-
-        bool UpdateById(K id);
-        
-        bool UpdateByObject(T instanceObject);
+        bool UpdateById(T instanceObject);
     }
 }
