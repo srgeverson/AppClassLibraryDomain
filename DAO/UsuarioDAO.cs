@@ -25,16 +25,16 @@ namespace AppClassLibraryDomain.DAO
     /// </summary>
     public class UsuarioDAO : IUsuarioDAO
     {
-        private ConnectionFactoryDAO connectionFactoryDAO;
+        private String connectionFactoryDAO;
 
-        public ConnectionFactoryDAO ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
+        public String ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
 
         public bool DeleteById(long? id)
         {
             try
             {
                 var usuarioRemovido = false;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
 
@@ -58,7 +58,7 @@ namespace AppClassLibraryDomain.DAO
         {
             try
             {
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
 
@@ -93,7 +93,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 var usuarios = new List<Usuario>();
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
                     var sqlCommand = new SqlCommand("SELECT * FROM usuarios;", sqlConnection);
@@ -122,7 +122,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
                     using (var sqlCommand = new SqlCommand("SELECT u.* FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
@@ -147,7 +147,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
 
@@ -173,7 +173,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
                     using (var sqlCommand = new SqlCommand("SELECT * FROM usuarios AS u WHERE u.Nome = @nome;", sqlConnection))
@@ -204,7 +204,7 @@ namespace AppClassLibraryDomain.DAO
             {
                 var usuarioAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
 
@@ -242,7 +242,7 @@ namespace AppClassLibraryDomain.DAO
             {
                 var usuarioAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
                 {
                     sqlConnection.Open();
 

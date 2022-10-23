@@ -80,17 +80,17 @@ namespace AppClassLibraryDomain.DAO
                     if (contato.Email == null)
                         sqlCommand.Parameters.AddWithValue("@email", DBNull.Value);
                     else
-                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Email);
+                        sqlCommand.Parameters.AddWithValue("@email", contato.Email);
 
                     if (contato.Telefone == null)
                         sqlCommand.Parameters.AddWithValue("@telefone", DBNull.Value);
                     else
-                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Telefone);
+                        sqlCommand.Parameters.AddWithValue("@telefone", contato.Telefone);
 
-                    if (contato.Id == null)
-                        sqlCommand.Parameters.AddWithValue("@id", contato.Id);
-                    else
-                        sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Id);
+                    //if (contato.Id == null)
+                    //    sqlCommand.Parameters.AddWithValue("@id", contato.Id);
+                    //else
+                    //    sqlCommand.Parameters.AddWithValue("@id", contato.Id);
 
                     var sqlDataReader = sqlCommand.ExecuteReader();
 

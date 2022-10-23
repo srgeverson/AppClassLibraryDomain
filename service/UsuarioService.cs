@@ -10,19 +10,29 @@ using ModelContex = AppClassLibraryDomain.model.EntityFramework;
 
 namespace AppClassLibraryDomain.service
 {
+    #region Interface
     /// <summary>
-    /// Classe responsável por tratar dos dados cadastrais relacionados usuários.
+    /// Interface responsável por tratar dos dados cadastrais relacionados aos contatos.
     /// </summary>
-    public class UsuarioService
+    public interface IUsuarioService : IGenericService<Usuario, long?> { }
+    #endregion
+
+    #region Class
+    /// <summary>
+    /// Classe  que implementa os serviços relacionados ao cadastro de usuários.
+    /// </summary>
+    public class UsuarioService : IUsuarioService
     {
-        private UsuarioDAO usuarioDAO;
+        private IUsuarioDAO usuarioDAO;
         private UsuarioNHibernateDAO usuarioNHibernateDAO;
         private UsuarioEntityFrameworkDAO usuarioEntityFrameworkDAO;
 
+        public IUsuarioDAO UsuarioDAO { set => usuarioDAO = value; }
+
         public UsuarioService()
         {
-            if (usuarioDAO == null)
-                usuarioDAO = new UsuarioDAO();
+            //if (usuarioDAO == null)
+            //    usuarioDAO = new UsuarioDAO();
 
             if (usuarioNHibernateDAO == null)
                 usuarioNHibernateDAO = new UsuarioNHibernateDAO();
@@ -172,6 +182,33 @@ namespace AppClassLibraryDomain.service
             return usuarioDAO.SelectAll();
         }
 
+        public void Adicionar(Usuario objeto)
+        {
+            this.CadastrarSQL(objeto);
+        }
+
+        public void Alterar(Usuario objeto)
+        {
+            this.AlterarPorIdSQL(objeto, objeto.Id);
+        }
+
+        public Usuario Buscar(long? id)
+        {
+            return this.BuscarPorIdSQL((int)id);
+        }
+
+        public void Excluir(long? id)
+        {
+            this.ApagarPorIdSQL((long)id);
+        }
+
+        public IList<Usuario> Listar(Usuario objeto)
+        {
+           return this.GetUsuariosSQL();
+        }
+
         #endregion -> Fim SQL
+
+        #endregion
     }
 }

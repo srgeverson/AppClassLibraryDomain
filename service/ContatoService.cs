@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using AppClassLibraryDomain.DAO;
 using AppClassLibraryDomain.model;
 
-namespace AppClassLibraryDomain.service.implementations
+namespace AppClassLibraryDomain.service
 {
+    #region Interface
+    /// <summary>
+    /// Interface responsável por tratar dos dados cadastrais relacionados aos contatos.
+    /// </summary>
+    public interface IContatoService : IGenericService<Contato, int?> { }
+    #endregion
+    
+    #region Class
+    /// <summary>
+    /// Classe que implementa os serviços relacionados ao cadastro de contatos.
+    /// </summary>
     public class ContatoService : IContatoService
     {
         private IContatoDAO contatoDAO;
@@ -16,8 +27,8 @@ namespace AppClassLibraryDomain.service.implementations
             try
             {
                 var contatoNovo = contatoDAO.Insert(contato);
-                if (contatoNovo.Id != null && contato.Id != 0)
-                    throw new Exception("Nenhum dado foi afetado.");
+                //if (contatoNovo.Id != null && contato.Id != 0)
+                //    throw new Exception("Nenhum dado foi afetado.");
             }
             catch (Exception ex)
             {
@@ -38,11 +49,11 @@ namespace AppClassLibraryDomain.service.implementations
             }
         }
 
-        public Contato Buscar(int id)
+        public Contato Buscar(int? id)
         {
             try
             {
-                return contatoDAO.SelectById(id);
+                return contatoDAO.SelectById((int)id);
             }
             catch (Exception ex)
             {
@@ -50,11 +61,11 @@ namespace AppClassLibraryDomain.service.implementations
             }
         }
 
-        public void Excluir(int id)
+        public void Excluir(int? id)
         {
             try
             {
-                if (!contatoDAO.DeleteById(id))
+                if (!contatoDAO.DeleteById((int)id))
                     throw new Exception("Nenhum dado foi afetado.");
             }
             catch (Exception ex)
@@ -75,4 +86,5 @@ namespace AppClassLibraryDomain.service.implementations
             }
         }
     }
+    #endregion
 }
