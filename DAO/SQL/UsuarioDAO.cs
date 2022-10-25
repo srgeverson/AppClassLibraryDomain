@@ -7,21 +7,9 @@ using System.Data.SqlClient;
 
 namespace AppClassLibraryDomain.DAO
 {
-    #region Inteface
-    /// <summary>
-    /// Inteface de persistência de objetos usuarios
-    /// </summary>
-    public interface IUsuarioDAO : IGenericDAO<Usuario, long?>
-    {
-        bool UpdateDataUltimoAcessoById(int? id);
-        Usuario SelectByNome(string email);
-        Usuario SelectByEmail(string email);
-    }
-    #endregion
-
     #region Class
     /// <summary>
-    /// Classe responsável por consultar os registros relacionados à tabela usuarios.
+    /// Classe de implementação de persistência de objetos usuários co SQL
     /// </summary>
     public class UsuarioDAO : IUsuarioDAO
     {
@@ -52,6 +40,11 @@ namespace AppClassLibraryDomain.DAO
             {
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
+        }
+
+        public UsuarioFotoPerfil DeleteFoto(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            throw new NotImplementedException();
         }
 
         public Usuario Insert(Usuario usuario)
@@ -86,6 +79,11 @@ namespace AppClassLibraryDomain.DAO
             {
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
+        }
+
+        public UsuarioFotoPerfil InsertFoto(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            throw new NotImplementedException();
         }
 
         public IList<Usuario> SelectAll()
@@ -236,6 +234,11 @@ namespace AppClassLibraryDomain.DAO
             }
         }
 
+        public Usuario UpdateByUsuario(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateDataUltimoAcessoById(int? id)
         {
             try
@@ -265,6 +268,11 @@ namespace AppClassLibraryDomain.DAO
             {
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
+        }
+
+        public UsuarioFotoPerfil UpdateFoto(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            throw new NotImplementedException();
         }
     }
     #endregion

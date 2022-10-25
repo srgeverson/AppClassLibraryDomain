@@ -8,30 +8,43 @@ using System.Linq;
 
 namespace AppClassLibraryDomain.DAO.NHibernate.EntityFramework
 {
-    public class UsuarioEntityFrameworkDAO
+    #region Inteface
+    /// <summary>
+    /// Inteface de persistência de objetos usuários
+    /// </summary>
+    public interface IUsuarioEntityFrameworkDAO : IGenericDAO<Usuario, long?>
     {
-        public IList<Usuario> GetUsuarios()
-        {
-            return new ContextFactory().Usuarios.ToList();
-        }
+        Usuario SelectByEmail(string email);
+        Usuario SelectByNome(string nome);
+        Usuario UpdateByUsuario(Usuario usuario);
+        bool UpdateDataUltimoAcessoById(long? id);
+    }
+    #endregion
 
-        public Usuario CadastrarUsuario(Usuario usuario)
+    #region Class
+    /// <summary>
+    /// Classe de implementação de persistência de objetos usuários com NHibernate
+    /// </summary>
+    public class UsuarioEntityFrameworkDAO : IUsuarioEntityFrameworkDAO
+    {
+        public bool UpdateDataUltimoAcessoById(long? id)
         {
+            var atualizar = false;
+            var usuario = SelectById(id);
             using (var context = new ContextFactory())
             {
-                context.Usuarios.Add(usuario);
-                var id = context.SaveChanges();
-                return BuscarUsuarioPorId(id);
+                usuario.DataUltimoAcesso = DateTime.UtcNow;
+                context.Usuarios.Attach(usuario);
+                context.Entry(usuario).State = EntityState.Modified;
+                context.SaveChanges();
+                atualizar = true;
             }
+            return atualizar;
         }
 
-        public Usuario BuscarUsuarioPorId(int id)
+        public bool DeleteById(long? id)
         {
-            using (var context = new ContextFactory())
-                return context.Usuarios.Find(id);
-        }
-        public bool ApagarUsuario(Usuario usuario)
-        {
+            var usuario = SelectById(id);
             using (var context = new ContextFactory())
             {
                 context.Usuarios.Attach(usuario);
@@ -41,21 +54,60 @@ namespace AppClassLibraryDomain.DAO.NHibernate.EntityFramework
             }
         }
 
-        public Usuario BuscarUsuarioPorEmail(string email)
+        public Usuario Insert(Usuario usuario)
+        {
+            using (var context = new ContextFactory())
+            {
+                context.Usuarios.Add(usuario);
+                var id = context.SaveChanges();
+                return SelectById(id);
+            }
+        }
+
+        public IList<Usuario> SelectAll()
+        {
+            return new ContextFactory().Usuarios.ToList();
+        }
+
+        public IList<Usuario> SelectByContainsProperties(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+       
+        public Usuario SelectByEmail(string email)
         {
             using (var context = new ContextFactory())
                 return context.Usuarios.Where(usuario => usuario.Email.Equals(email)).FirstOrDefault();
         }
 
-        public Usuario AtualizarUsuario(Usuario usuario)
+        public Usuario SelectById(long? id)
+        {
+            using (var context = new ContextFactory())
+                return context.Usuarios.Find(id);
+        }
+
+        public Usuario SelectByNome(string nome)
+        {
+            using (var context = new ContextFactory())
+                return context.Usuarios.Where(usuario => usuario.Email.Equals(nome)).FirstOrDefault();
+        }
+
+        public bool UpdateById(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario UpdateByUsuario(Usuario usuario)
         {
             using (var context = new ContextFactory())
             {
                 context.Usuarios.Attach(usuario);
                 context.Entry(usuario).State = EntityState.Modified;
                 var id = context.SaveChanges();
-                return BuscarUsuarioPorId(id);
+                return SelectById(id);
             }
         }
+
     }
+    #endregion
 }

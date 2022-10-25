@@ -1,5 +1,4 @@
-﻿using AppClassLibraryDomain.model;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Cfg;
 using System;
 using System.Reflection;

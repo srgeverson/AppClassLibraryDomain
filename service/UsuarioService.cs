@@ -50,36 +50,36 @@ namespace AppClassLibraryDomain.service
 
         public bool ApagarUsuarioEntity(ModelContex.Usuario usuario)
         {
-            return usuarioEntityFrameworkDAO.ApagarUsuario(usuario);
+            return usuarioEntityFrameworkDAO.DeleteById(usuario.Id);
         }
 
         public ModelContex.Usuario AtualizarEntity(ModelContex.Usuario usuario)
         {
             if (!string.IsNullOrEmpty(usuario.Senha))
                 usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioEntityFrameworkDAO.AtualizarUsuario(usuario);
+            return usuarioEntityFrameworkDAO.UpdateByUsuario(usuario);
         }
 
         public ModelContex.Usuario BuscarPorEmailEntity(string email)
         {
-            return usuarioEntityFrameworkDAO.BuscarUsuarioPorEmail(email);
+            return usuarioEntityFrameworkDAO.SelectByEmail(email);
         }
 
         public ModelContex.Usuario CadastrarEntity(ModelContex.Usuario usuario)
         {
             if (!string.IsNullOrEmpty(usuario.Senha))
                 usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioEntityFrameworkDAO.CadastrarUsuario(usuario);
+            return usuarioEntityFrameworkDAO.Insert(usuario);
         }
 
         public IList<ModelContex.Usuario> GetUsuariosEntity()
         {
-            return usuarioEntityFrameworkDAO.GetUsuarios();
+            return usuarioEntityFrameworkDAO.SelectAll();
         }
 
         public ModelContex.Usuario GetUsuarioPorIdEntity(int id)
         {
-            return usuarioEntityFrameworkDAO.BuscarUsuarioPorId(id);
+            return usuarioEntityFrameworkDAO.SelectById(id);
         }
 
         #endregion -> Fim Entity Framework
@@ -90,47 +90,47 @@ namespace AppClassLibraryDomain.service
         {
             if (!string.IsNullOrEmpty(usuario.Senha))
                 usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioNHibernateDAO.AtualizarUsuario(usuario);
+            return usuarioNHibernateDAO.UpdateByUsuario(usuario);
         }
 
         public Usuario ApagarUsuarioNHibernate(Usuario usuario)
         {
-            return usuarioNHibernateDAO.ApagarUsuario(usuario);
+            return usuarioNHibernateDAO.DeleteById((long)usuario.Id) ? usuario : null;
         }
 
         public Usuario BuscarPorIdNHibernate(Int64 id)
         {
-            return usuarioNHibernateDAO.BuscarUsuarioPorId(id);
+            return usuarioNHibernateDAO.SelectById(id);
         }
 
         public Usuario BuscarPorEmailNHibernate(string email)
         {
-            return usuarioNHibernateDAO.BuscarUsuarioPorEmail(email);
+            return usuarioNHibernateDAO.SelectByEmail(email);
         }
 
         public Usuario CadastrarNHibernate(Usuario usuario)
         {
             if (!string.IsNullOrEmpty(usuario.Senha))
                 usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
-            return usuarioNHibernateDAO.CadastrarUsuario(usuario);
+            return usuarioNHibernateDAO.Insert(usuario);
         }
 
         public IList<Usuario> GetUsuariosNHibernate()
         {
-            return usuarioNHibernateDAO.GetUsuarios();
+            return usuarioNHibernateDAO.SelectAll();
         }
 
         public UsuarioFotoPerfil CadastrarFotoNHibernate(UsuarioFotoPerfil usuarioFotoPerfil)
         {
-            return usuarioNHibernateDAO.CadastrarFotoUsuario(usuarioFotoPerfil);
+            return usuarioNHibernateDAO.InsertFoto(usuarioFotoPerfil);
         }
         public UsuarioFotoPerfil ApagarFotoUsuarioNHibernate(UsuarioFotoPerfil usuarioFotoPerfil)
         {
-            return usuarioNHibernateDAO.ApagarFotoUsuario(usuarioFotoPerfil);
+            return usuarioNHibernateDAO.DeleteFoto(usuarioFotoPerfil);
         }
         public UsuarioFotoPerfil AtualizarFotoNHibernate(UsuarioFotoPerfil usuarioFotoPerfil)
         {
-            return usuarioNHibernateDAO.AtualizarFotoUsuario(usuarioFotoPerfil);
+            return usuarioNHibernateDAO.UpdateFoto(usuarioFotoPerfil);
         }
 
         #endregion -> Início NHibernate

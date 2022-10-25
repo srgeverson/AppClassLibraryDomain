@@ -91,15 +91,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\ConnectionFactoryDAO.cs" />
-    <Compile Include="DAO\ContatoDAO.cs" />
+    <Compile Include="DAO\IUsuarioDAO.cs" />
+    <Compile Include="DAO\SQL\ConnectionFactoryDAO.cs" />
+    <Compile Include="DAO\SQL\ContatoDAO.cs" />
     <Compile Include="DAO\EntityFramework\ContextFactory.cs" />
     <Compile Include="DAO\EntityFramework\UsuarioEntityFrameworkDAO.cs" />
     <Compile Include="DAO\IGenericDAO.cs" />
     <Compile Include="DAO\NHibernate\SessionFactory.cs" />
     <Compile Include="DAO\NHibernate\UsuarioNHibernateDAO.cs" />
-    <Compile Include="DAO\PermissaoDAO.cs" />
-    <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="DAO\SQL\PermissaoDAO.cs" />
+    <Compile Include="DAO\SQL\UsuarioDAO.cs" />
     <Compile Include="model\Contato.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
     <Compile Include="model\Permissao.cs" />

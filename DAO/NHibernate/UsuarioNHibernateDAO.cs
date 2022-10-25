@@ -5,9 +5,47 @@ using System.Collections.Generic;
 
 namespace AppClassLibraryDomain.DAO.NHibernate
 {
-    public class UsuarioNHibernateDAO
+    #region Class
+    /// <summary>
+    /// Classe de implementação de persistência de objetos usuários com NHibernate
+    /// </summary>
+    public class UsuarioNHibernateDAO : IUsuarioDAO
     {
-        public IList<Usuario> GetUsuarios()
+        public bool DeleteById(long? id)
+        {
+            var usuario = this.SelectById(id);
+            using (var session = SessionFactory.OpenSession)
+            {
+                session.Delete(usuario);
+                session.Flush();
+                return usuario != null;
+            }
+        }
+
+        public UsuarioFotoPerfil DeleteFoto(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            using (var session = SessionFactory.OpenSession)
+            {
+                session.Delete(usuarioFotoPerfil);
+                session.Flush();
+                return usuarioFotoPerfil;
+            }
+        }
+
+        public Usuario Insert(Usuario usuario)
+        {
+            using (var session = SessionFactory.OpenSession)
+                usuario.Id = Int64.Parse(session.Save(usuario).ToString());
+            return usuario;
+        }
+        public UsuarioFotoPerfil InsertFoto(UsuarioFotoPerfil usuarioFotoPerfil)
+        {
+            using (var session = SessionFactory.OpenSession)
+                usuarioFotoPerfil.Id = Int64.Parse(session.Save(usuarioFotoPerfil).ToString());
+            return usuarioFotoPerfil;
+        }
+
+        public IList<Usuario> SelectAll()
         {
             using (var session = SessionFactory.OpenSession)
             {
@@ -16,32 +54,12 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             }
         }
 
-        public Usuario CadastrarUsuario(Usuario usuario)
+        public IList<Usuario> SelectByContainsProperties(Usuario usuario)
         {
-            using (var session = SessionFactory.OpenSession)
-                usuario.Id = Int64.Parse(session.Save(usuario).ToString());
-            return usuario;
+            throw new NotImplementedException();
         }
 
-        public Usuario BuscarUsuarioPorId(Int64 id)
-        {
-            using (var session = SessionFactory.OpenSession)
-            {
-                var usuario = (Usuario)session.Get(typeof(Usuario), id);
-                return usuario;
-            }
-        }
-        public Usuario ApagarUsuario(Usuario usuario)
-        {
-            using (var session = SessionFactory.OpenSession)
-            {
-                session.Delete(usuario);
-                session.Flush();
-                return usuario;
-            }
-        }
-
-        public Usuario BuscarUsuarioPorEmail(string email)
+        public Usuario SelectByEmail(string email)
         {
             using (var session = SessionFactory.OpenSession)
             {
@@ -52,7 +70,32 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             }
         }
 
-        public Usuario AtualizarUsuario(Usuario usuario)
+        public Usuario SelectById(long? id)
+        {
+            using (var session = SessionFactory.OpenSession)
+            {
+                var usuario = (Usuario)session.Get(typeof(Usuario), id);
+                return usuario;
+            }
+        }
+
+        public Usuario SelectByNome(string nome)
+        {
+            using (var session = SessionFactory.OpenSession)
+            {
+                IQuery query = session.CreateQuery("FROM Usuario u WHERE u.Nome = :nome");
+                query.SetParameter("nome", nome);
+                var usuario = query.UniqueResult<Usuario>();
+                return usuario;
+            }
+        }
+
+        public bool UpdateById(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario UpdateByUsuario(Usuario usuario)
         {
             using (var session = SessionFactory.OpenSession)
             {
@@ -63,14 +106,19 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             }
         }
 
-        public UsuarioFotoPerfil CadastrarFotoUsuario(UsuarioFotoPerfil usuarioFotoPerfil)
+        public bool UpdateDataUltimoAcessoById(int? id)
         {
+            var usuario = this.SelectById(id);
             using (var session = SessionFactory.OpenSession)
-                usuarioFotoPerfil.Id = Int64.Parse(session.Save(usuarioFotoPerfil).ToString());
-            return usuarioFotoPerfil;
+            {
+                usuario.DataOperacao = DateTimeOffset.UtcNow;
+                session.Update(usuario);
+                session.Flush();
+                return usuario != null;
+            }
         }
 
-        public UsuarioFotoPerfil AtualizarFotoUsuario(UsuarioFotoPerfil usuarioFotoPerfil)
+        public UsuarioFotoPerfil UpdateFoto(UsuarioFotoPerfil usuarioFotoPerfil)
         {
             using (var session = SessionFactory.OpenSession)
             {
@@ -80,15 +128,6 @@ namespace AppClassLibraryDomain.DAO.NHibernate
                 return usuarioFotoPerfil;
             }
         }
-
-        public UsuarioFotoPerfil ApagarFotoUsuario(UsuarioFotoPerfil usuarioFotoPerfil)
-        {
-            using (var session = SessionFactory.OpenSession)
-            {
-                session.Delete(usuarioFotoPerfil);
-                session.Flush();
-                return usuarioFotoPerfil;
-            }
-        }
     }
+    #endregion
 }
