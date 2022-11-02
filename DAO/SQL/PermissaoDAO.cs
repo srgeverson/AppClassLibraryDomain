@@ -5,23 +5,23 @@ using AppClassLibraryDomain.utils;
 using AppClassLibraryDomain.model;
 using System.Data.SqlClient;
 
-namespace AppClassLibraryDomain.DAO
+namespace AppClassLibraryDomain.DAO.SQL
 {
     /// <summary>
     /// Classe responsável por consultar os registros relacionados à tabela Permissaos.
     /// </summary>
     public class PermissaoDAO
     {
-        private ConnectionFactoryDAO connectionFactoryDAO;
+        private String urlConnection;
 
-        public ConnectionFactoryDAO ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
+        public String UrlConnection { set => urlConnection = value; }
 
         public List<Permissao> SelectByNomeUsuario(string nomeUsuario)
         {
             try
             {
                 var permissaos = new List<Permissao>();
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();
@@ -49,7 +49,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 var permissaos = new List<Permissao>();
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();
@@ -77,7 +77,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 var permissaos = new List<Permissao>();
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO.Url))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AppClassLibraryDomain.utils;
 using AppClassLibraryDomain.model;
 
-namespace AppClassLibraryDomain.DAO
+namespace AppClassLibraryDomain.DAO.SQL
 {
     #region Inteface
     /// <summary>

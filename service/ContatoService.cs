@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AppClassLibraryDomain.DAO;
+using AppClassLibraryDomain.DAO.SQL;
 using AppClassLibraryDomain.model;
 
 namespace AppClassLibraryDomain.service

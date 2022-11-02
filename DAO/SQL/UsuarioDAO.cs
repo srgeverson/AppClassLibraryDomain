@@ -5,7 +5,7 @@ using AppClassLibraryDomain.utils;
 using AppClassLibraryDomain.model;
 using System.Data.SqlClient;
 
-namespace AppClassLibraryDomain.DAO
+namespace AppClassLibraryDomain.DAO.SQL
 {
     #region Class
     /// <summary>
@@ -13,16 +13,16 @@ namespace AppClassLibraryDomain.DAO
     /// </summary>
     public class UsuarioDAO : IUsuarioDAO
     {
-        private String connectionFactoryDAO;
+        private String urlConnection;
 
-        public String ConnectionFactoryDAO { set => connectionFactoryDAO = value; }
+        public String UrlConnection { set => urlConnection = value; }
 
         public bool DeleteById(long? id)
         {
             try
             {
                 var usuarioRemovido = false;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
 
@@ -51,7 +51,7 @@ namespace AppClassLibraryDomain.DAO
         {
             try
             {
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
 
@@ -91,7 +91,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 var usuarios = new List<Usuario>();
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
                     var sqlCommand = new SqlCommand("SELECT * FROM usuarios;", sqlConnection);
@@ -120,7 +120,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
                     using (var sqlCommand = new SqlCommand("SELECT u.* FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
@@ -145,7 +145,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
 
@@ -171,7 +171,7 @@ namespace AppClassLibraryDomain.DAO
             try
             {
                 Usuario usuario = null;
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
                     using (var sqlCommand = new SqlCommand("SELECT * FROM usuarios AS u WHERE u.Nome = @nome;", sqlConnection))
@@ -202,7 +202,7 @@ namespace AppClassLibraryDomain.DAO
             {
                 var usuarioAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
 
@@ -245,7 +245,7 @@ namespace AppClassLibraryDomain.DAO
             {
                 var usuarioAtualizado = false;
 
-                using (var sqlConnection = new SqlConnection(connectionFactoryDAO))
+                using (var sqlConnection = new SqlConnection(urlConnection))
                 {
                     sqlConnection.Open();
 

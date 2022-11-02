@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace AppClassLibraryDomain.DAO
+namespace AppClassLibraryDomain.DAO.SQL
 {
     public class ConnectionFactoryDAO
     {
@@ -14,6 +14,7 @@ namespace AppClassLibraryDomain.DAO
                 else
                     return url;
             }
+            //set { url = value; }
         }
     }
 }
