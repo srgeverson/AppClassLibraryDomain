@@ -7,7 +7,9 @@ namespace AppClassLibraryDomain.service
         void Adicionar(T objeto);
         void Alterar(T objeto);
         T Buscar(K id);
+        T BuscarPorId(K id);
         void Excluir(K id);
-        IList<T> Listar(T objeto);
+        IList<T> ListarPorObjeto(T objeto);
+        IList<T> ListarTodos();
     }
 }

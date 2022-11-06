@@ -11,22 +11,22 @@ namespace AppClassLibraryDomain.service
     /// </summary>
     public interface IContatoService : IGenericService<Contato, int?> { }
     #endregion
-    
+
     #region Class
     /// <summary>
     /// Classe que implementa os serviços relacionados ao cadastro de contatos.
     /// </summary>
     public class ContatoService : IContatoService
     {
-        private IContatoDAO contatoDAO;
+        private IContatoDAO _contatoDAO;
 
-        public IContatoDAO ContatoDAO { set => contatoDAO = value; }
+        public IContatoDAO ContatoDAO { set => _contatoDAO = value; }
 
         public void Adicionar(Contato contato)
         {
             try
             {
-                var contatoNovo = contatoDAO.Insert(contato);
+                var contatoNovo = _contatoDAO.Insert(contato);
                 //if (contatoNovo.Id != null && contato.Id != 0)
                 //    throw new Exception("Nenhum dado foi afetado.");
             }
@@ -40,7 +40,7 @@ namespace AppClassLibraryDomain.service
         {
             try
             {
-                if (!contatoDAO.UpdateById(contato))
+                if (!_contatoDAO.UpdateById(contato))
                     throw new Exception("Nenhum dado foi afetado.");
             }
             catch (Exception ex)
@@ -53,7 +53,19 @@ namespace AppClassLibraryDomain.service
         {
             try
             {
-                return contatoDAO.SelectById((int)id);
+                return _contatoDAO.SelectById((int)id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Não foi possível realizar a operação {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+            }
+        }
+
+        public Contato BuscarPorId(int? id)
+        {
+            try
+            {
+                return _contatoDAO.SelectById((int)id);
             }
             catch (Exception ex)
             {
@@ -65,7 +77,7 @@ namespace AppClassLibraryDomain.service
         {
             try
             {
-                if (!contatoDAO.DeleteById((int)id))
+                if (!_contatoDAO.DeleteById((int)id))
                     throw new Exception("Nenhum dado foi afetado.");
             }
             catch (Exception ex)
@@ -74,17 +86,18 @@ namespace AppClassLibraryDomain.service
             }
         }
 
-        public IList<Contato> Listar(Contato contato)
+        public IList<Contato> ListarPorObjeto(Contato contato)
         {
             try
             {
-                return contatoDAO.SelectByContainsProperties(contato);
+                return _contatoDAO.SelectByContainsProperties(contato);
             }
             catch (Exception ex)
             {
                 throw new Exception(string.Format("Não foi possível realizar a operação {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
+        public IList<Contato> ListarTodos() => _contatoDAO.SelectAll();
     }
     #endregion
 }
