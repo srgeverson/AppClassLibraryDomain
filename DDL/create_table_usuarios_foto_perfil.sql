@@ -5,8 +5,8 @@
 
 CREATE TABLE [dbo].[usuarios_foto_perfil]
 (
-	[id]             [int] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
-	[usuario_id]     INT UNIQUE NOT NULL CONSTRAINT [fk_usuario_id] FOREIGN KEY([usuario_id]) REFERENCES [dbo].[usuarios] ([id]) 
+	[id]             [BIGINT] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	[usuario_id]     BIGINT UNIQUE NOT NULL CONSTRAINT [fk_usuario_id] FOREIGN KEY([usuario_id]) REFERENCES [dbo].[usuarios] ([id]) 
 	ON DELETE CASCADE
 	ON UPDATE CASCADE,
 	[nome]           [varchar](50) NULL,

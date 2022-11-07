@@ -2,12 +2,16 @@
 {
     public class Contato
     {
-        private int? id;
-        private string nome;
-        public int? Id { get => id; set => id = value; }
-        public string Nome { get { return nome; } set { nome = value; } }
-        public string SobreNome { get; set; }
-        public string Email { get; set; }
-        public string Telefone { get; set; }
+        private long? _id;
+        private string _nome;
+        private string _sobreNome;
+        private string _email;
+        private string _telefone;
+
+        public virtual long? Id { get => _id; set => _id = value; }
+        public virtual string Nome { get => _nome; set => _nome = value; }
+        public virtual string SobreNome { get => _sobreNome; set => _sobreNome = value; }
+        public virtual string Email { get => _email; set => _email = value; }
+        public virtual string Telefone { get => _telefone; set => _telefone = value; }
     }
 }

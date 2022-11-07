@@ -2,14 +2,14 @@
 {
     public class Permissao
     {
-        private int? id;
+        private long? id;
         private string nome;
         private string descricao;
         private bool? ativo;
 
-        public int? Id { get => id; set => id = value; }
-        public string Nome { get => nome; set => nome = value; }
-        public string Descricao { get => descricao; set => descricao = value; }
-        public bool? Ativo { get => ativo; set => ativo = value; }
+        public virtual long? Id { get => id; set => id = value; }
+        public virtual string Nome { get => nome; set => nome = value; }
+        public virtual string Descricao { get => descricao; set => descricao = value; }
+        public virtual bool? Ativo { get => ativo; set => ativo = value; }
     }
 }

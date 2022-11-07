@@ -5,9 +5,9 @@
 
 CREATE TABLE usuarios_permissoes
 (
-	id        INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
-	usuario_id INT NOT NULL FOREIGN KEY REFERENCES usuarios(id),
-	permissao_id INT NOT NULL FOREIGN KEY REFERENCES permissoes(id),
+	id        BIGINT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+	usuario_id BIGINT NOT NULL FOREIGN KEY REFERENCES usuarios(id),
+	permissao_id BIGINT NOT NULL FOREIGN KEY REFERENCES permissoes(id),
 	ativo     TINYINT NOT NULL,
 	data_cadastro DATETIME NOT NULL,
 	data_operacao DATETIME NOT NULL

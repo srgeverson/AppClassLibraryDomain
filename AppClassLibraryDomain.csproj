@@ -151,6 +151,9 @@
     <Compile Include="utils\ResultSetToModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DAO\NHibernate\mapping\Contato.hbm.xml" />
+    <EmbeddedResource Include="DAO\NHibernate\mapping\Permissao.hbm.xml" />
+    <Content Include="DDL\alter_column_id_table_usuarios.sql" />
     <Content Include="LICENSE.txt" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Usuario.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioFotoPerfil.hbm.xml" />
