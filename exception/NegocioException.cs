@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SisContatos.domain.exception
+namespace AppClassLibraryDomain.exception
 {
     public class NegocioException : Exception
     {
