@@ -18,23 +18,12 @@ namespace AppClassLibraryDomain.DAO.NHibernate
         public bool DeleteById(long? id)
         {
             var usuario = this.SelectById(id);
-            //using (var session = SessionFactory.OpenSession)
-            //{
-            //    session.Delete(usuario);
-            //    session.Flush();
-            //    return usuario != null;
-            //}
             _sessionFactoryImpl.OpenSession.Delete(usuario);
             return true;
         }
 
         public UsuarioFotoPerfil DeleteFoto(UsuarioFotoPerfil usuarioFotoPerfil)
         {
-            //using (var session = SessionFactory.OpenSession)
-            //{
-            //    session.Delete(usuarioFotoPerfil);
-            //    session.Flush();
-            //}
             _sessionFactoryImpl.OpenSession.Delete(usuarioFotoPerfil);
             return usuarioFotoPerfil;
         }
