@@ -56,7 +56,7 @@ namespace AppClassLibraryDomain.DAO.EntityFramework
             return SelectById(id);
         }
 
-        public bool UpdateDataUltimoAcessoById(int? id)
+        public bool UpdateDataUltimoAcessoById(long? id)
         {
             var usuario = SelectById(id);
             usuario.DataUltimoAcesso = DateTime.UtcNow;

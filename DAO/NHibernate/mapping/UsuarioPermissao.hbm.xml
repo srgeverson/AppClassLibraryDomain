@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="AppClassLibraryDomain" namespace="AppClassLibraryDomain.model">
+	<class name="UsuarioPermissao" table="usuarios_permissoes" lazy="true">
+		<id name="Id" column="id" type="Int64" unsaved-value="null">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="Permissao" column="permissao_id"  class="Permissao" />
+		<many-to-one name="Usuario" column="usuario_id"  class="Usuario" />
+		<property name="Ativo" column ="ativo" type="Boolean"/>
+		<property name="DataCadastro" column="data_Cadastro" type="DateTimeOffset"/>
+		<property name="DataOperacao" column="data_operacao" type="DateTimeOffset"/>
+	</class>
+</hibernate-mapping>

@@ -239,7 +239,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             throw new NotImplementedException();
         }
 
-        public bool UpdateDataUltimoAcessoById(int? id)
+        public bool UpdateDataUltimoAcessoById(long? id)
         {
             try
             {

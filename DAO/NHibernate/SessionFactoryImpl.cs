@@ -8,7 +8,7 @@ namespace AppClassLibraryDomain.DAO.NHibernate
     public class SessionFactoryImpl
     {
         private static volatile ISessionFactory _sessionFactory;
-        private static object _syncRoot = new Object();
+        private static readonly object _syncRoot = new Object();
 
         public ISession OpenSession
         {

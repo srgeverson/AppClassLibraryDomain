@@ -12,7 +12,7 @@ namespace AppClassLibraryDomain.DAO
         Usuario SelectByEmail(string email);
         Usuario SelectByNome(string nome);
         Usuario UpdateByUsuario(Usuario usuario);
-        bool UpdateDataUltimoAcessoById(int? id);
+        bool UpdateDataUltimoAcessoById(long? id);
         UsuarioFotoPerfil UpdateFoto(UsuarioFotoPerfil usuarioFotoPerfil);
         UsuarioFotoPerfil InsertFoto(UsuarioFotoPerfil usuarioFotoPerfil);
     }

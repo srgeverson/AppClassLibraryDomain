@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AppClassLibraryDomain.model;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace AppClassLibraryDomain.DAO.NHibernate
 {
@@ -33,6 +35,7 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             _sessionFactoryImpl.OpenSession.Save(usuario);
             return usuario;
         }
+        
         public UsuarioFotoPerfil InsertFoto(UsuarioFotoPerfil usuarioFotoPerfil)
         {
             _sessionFactoryImpl.OpenSession.Save(usuarioFotoPerfil);
@@ -43,7 +46,6 @@ namespace AppClassLibraryDomain.DAO.NHibernate
         {
             IQuery query = _sessionFactoryImpl.OpenSession.CreateQuery("FROM Usuario");
             return query.List<Usuario>();
-            //return null;
         }
 
         public IList<Usuario> SelectByContainsProperties(Usuario usuario)
@@ -53,56 +55,36 @@ namespace AppClassLibraryDomain.DAO.NHibernate
 
         public Usuario SelectByEmail(string email)
         {
-            //return null;
-            //using (var session = SessionFactory.OpenSession)
-            //{
-            //}
             IQuery query = _sessionFactoryImpl.OpenSession.CreateQuery("FROM Usuario u WHERE u.Email = :email");
             query.SetParameter("email", email);
             var usuario = query.UniqueResult<Usuario>();
             return usuario;
         }
 
-        public Usuario SelectById(long? id)
-        {
-            return null;
-            //using (var session = SessionFactory.OpenSession)
-            //{
-            //    var usuario = (Usuario)session.Get(typeof(Usuario), id);
-            //    return usuario;
-            //}
-        }
+        public Usuario SelectById(long? id) => (Usuario)_sessionFactoryImpl.OpenSession.Get(typeof(Usuario), id);
 
         public Usuario SelectByNome(string nome)
         {
-            return null;
-            //using (var session = SessionFactory.OpenSession)
-            //{
-            //    IQuery query = session.CreateQuery("FROM Usuario u WHERE u.Nome = :nome");
-            //    query.SetParameter("nome", nome);
-            //    var usuario = query.UniqueResult<Usuario>();
-            //    return usuario;
-            //}
+            return _sessionFactoryImpl
+                .OpenSession
+                .CreateCriteria<Usuario>()
+                .Add(Expression.Eq("Nome", nome))
+                .List<Usuario>().FirstOrDefault();
         }
 
         public bool UpdateById(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _sessionFactoryImpl.OpenSession.SaveOrUpdate(usuario);
+            return true;
         }
 
         public Usuario UpdateByUsuario(Usuario usuario)
         {
-            return null;
-            //using (var session = SessionFactory.OpenSession)
-            //{
-            //    usuario.DataOperacao = DateTimeOffset.UtcNow;
-            //    session.Update(usuario);
-            //    session.Flush();
-            //    return usuario;
-            //}
+            _sessionFactoryImpl.OpenSession.SaveOrUpdate(usuario);
+            return usuario;
         }
 
-        public bool UpdateDataUltimoAcessoById(int? id)
+        public bool UpdateDataUltimoAcessoById(long? id)
         {
             //var usuario = this.SelectById(id);
             //using (var session = SessionFactory.OpenSession)
