@@ -9,13 +9,13 @@ namespace AppClassLibraryDomain.model
         private Usuario _usuario;    
         private bool? ativo;
         private DateTimeOffset? _dataCadastro;
-        private DateTimeOffset? _dataUltimoAcesso;
+        private DateTimeOffset? _dataOperacao;
 
-        public long? Id { get => id; set => id = value; }
-        public Permissao Permissao { get => _permissao; set => _permissao = value; }
-        public Usuario Usuario { get => _usuario; set => _usuario = value; }
-        public bool? Ativo { get => ativo; set => ativo = value; }
-        public DateTimeOffset? DataCadastro { get => _dataCadastro; set => _dataCadastro = value; }
-        public DateTimeOffset? DataUltimoAcesso { get => _dataUltimoAcesso; set => _dataUltimoAcesso = value; }
+        public virtual long? Id { get => id; set => id = value; }
+        public virtual Permissao Permissao { get => _permissao; set => _permissao = value; }
+        public virtual Usuario Usuario { get => _usuario; set => _usuario = value; }
+        public virtual bool? Ativo { get => ativo; set => ativo = value; }
+        public virtual DateTimeOffset? DataCadastro { get => _dataCadastro; set => _dataCadastro = value; }
+        public virtual DateTimeOffset? DataOperacao { get => _dataOperacao; set => _dataOperacao = value; }
     }
 }

@@ -34,6 +34,7 @@ namespace AppClassLibraryDomain.service
             usuario.Ativo = true;
             if (!string.IsNullOrEmpty(usuario.Senha))
                 usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            usuario.DataCadastro = DateTime.UtcNow;
             _usuarioDAO.Insert(usuario);
         }
         public void Alterar(Usuario usuario)
