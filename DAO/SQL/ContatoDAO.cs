@@ -94,17 +94,14 @@ namespace AppClassLibraryDomain.DAO.SQL
 
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
-                    var resultSetToModel = new ResultSetToModel<Contato>();
-                    contato.Id = resultSetToModel.ToModel(sqlDataReader, true).Id;
-
-                    sqlConnection.Close();
+                    contato.Id = ResultSetToModelUtils<Contato>.ToModel(sqlDataReader).Id;
                 }
                 return contato;
             }
             catch (Exception ex)
             {
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
-            }      
+            }
         }
 
         public IList<Contato> SelectAll()
@@ -119,10 +116,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     var sqlCommand = new SqlCommand("SELECT c.* FROM contatos AS c WHERE c.Id = @id", sqlConnection);
 
                     using (var sqlDataReader = sqlCommand.ExecuteReader())
-                    {
-                        var resultSetToModel = new ResultSetToModel<Contato>();
-                        contatos = resultSetToModel.ToListModel(sqlDataReader);
-                    }
+                        contatos = ResultSetToModelUtils<Contato>.ToListModel(sqlDataReader);
                 }
                 return contatos;
             }
@@ -145,10 +139,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     sqlCommand.Parameters.AddWithValue("@id", id);
 
                     using (var sqlDataReader = sqlCommand.ExecuteReader())
-                    {
-                        var resultSetToModel = new ResultSetToModel<Contato>();
-                        contato = resultSetToModel.ToModel(sqlDataReader, true);
-                    }
+                        contato = ResultSetToModelUtils<Contato>.ToModel(sqlDataReader);
                 }
                 return contato;
             }
@@ -157,7 +148,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
-        
+
         public IList<Contato> SelectByContainsProperties(Contato contato)
         {
             try
@@ -180,10 +171,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
 
                     using (var sqlDataReader = sqlCommand.ExecuteReader())
-                    {
-                        var resultSetToModel = new ResultSetToModel<Contato>();
-                        contatos = resultSetToModel.ToListModel(sqlDataReader);
-                    }
+                        contatos = ResultSetToModelUtils<Contato>.ToListModel(sqlDataReader);
                 }
                 return contatos;
             }
@@ -192,7 +180,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
-        
+
         public IList<Contato> SelectByObject(Contato contato)
         {
             throw new NotImplementedException();
@@ -286,7 +274,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                             sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.SobreNome);
 
                         if (contato.Email == null)
-                            sqlCommand.Parameters.AddWithValue("@email", DBNull.Value );
+                            sqlCommand.Parameters.AddWithValue("@email", DBNull.Value);
                         else
                             sqlCommand.Parameters.AddWithValue("@sobre_nome", contato.Email);
 

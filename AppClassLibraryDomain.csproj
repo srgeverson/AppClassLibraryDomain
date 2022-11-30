@@ -160,7 +160,7 @@
     <Compile Include="service\UsuarioPermissaoService.cs" />
     <Compile Include="service\PermissaoService.cs" />
     <Compile Include="service\UsuarioService.cs" />
-    <Compile Include="utils\ResultSetToModel.cs" />
+    <Compile Include="utils\ResultSetToModelUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DAO\NHibernate\mapping\Contato.hbm.xml" />

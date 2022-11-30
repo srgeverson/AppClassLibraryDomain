@@ -9,30 +9,21 @@ namespace AppClassLibraryDomain.utils
     /// <summary>
     /// Classe responsável converter o ResultSet retornado do banco de dados para o Objeto especificado.
     /// </summary>
-    public class ResultSetToModel<T>
+    public static class ResultSetToModelUtils<T>
     {
-        public List<T> ToListModel(SqlDataReader sqlDataReader)
+        public static List<T> ToListModel(SqlDataReader sqlDataReader)
         {
             var models = new List<T>();
 
             while (sqlDataReader.Read())
-                models.Add(ToModel(sqlDataReader));
+                models.Add(ToModel(sqlDataReader, (T)Activator.CreateInstance(typeof(T))));
 
             return models;
         }
 
-        public T ToModel(SqlDataReader sqlDataReader, bool isOneObject = false)
-        {
-            if (isOneObject)
-                while (sqlDataReader.Read())
-                    return ToModel(sqlDataReader, (T)Activator.CreateInstance(typeof(T)));
-            else
-                return ToModel(sqlDataReader, (T)Activator.CreateInstance(typeof(T)));
+        public static T ToModel(SqlDataReader sqlDataReader) => sqlDataReader.Read() ? ToModel(sqlDataReader, (T)Activator.CreateInstance(typeof(T))) : default(T);
 
-            return default(T);
-        }
-
-        private T ToModel(SqlDataReader sqlDataReader, T model)
+        private static T ToModel(SqlDataReader sqlDataReader, T model)
         {
             var columns = Enumerable.Range(0, sqlDataReader.FieldCount).Select(sqlDataReader.GetName).ToList();
             Type type = typeof(T);

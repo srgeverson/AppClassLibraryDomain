@@ -68,8 +68,7 @@ namespace AppClassLibraryDomain.DAO.SQL
 
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
-                    var resultSetToModel = new ResultSetToModel<Usuario>();
-                    usuario.Id = resultSetToModel.ToModel(sqlDataReader, true).Id;
+                    usuario.Id = ResultSetToModelUtils<Usuario>.ToModel(sqlDataReader).Id;
 
                     sqlConnection.Close();
                 }
@@ -97,10 +96,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     var sqlCommand = new SqlCommand("SELECT * FROM usuarios;", sqlConnection);
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
-                    var resultSetToModel = new ResultSetToModel<Usuario>();
-                    usuarios = resultSetToModel.ToListModel(sqlDataReader);
-
-                    sqlConnection.Close();
+                    usuarios = ResultSetToModelUtils<Usuario>.ToListModel(sqlDataReader);
                 }
                 return usuarios;
             }
@@ -128,8 +124,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                         sqlCommand.Parameters.AddWithValue("@email", email);
 
                         var sqlDataReader = sqlCommand.ExecuteReader();
-                        var resultSetToModel = new ResultSetToModel<Usuario>();
-                        usuario = resultSetToModel.ToModel(sqlDataReader, true);
+                        usuario = ResultSetToModelUtils<Usuario>.ToModel(sqlDataReader);
                     }
                 }
                 return usuario;
@@ -153,10 +148,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     sqlCommand.Parameters.AddWithValue("@id", id);
 
                     using (var sqlDataReader = sqlCommand.ExecuteReader())
-                    {
-                        var resultSetToModel = new ResultSetToModel<Usuario>();
-                        usuario = resultSetToModel.ToModel(sqlDataReader, true);
-                    }
+                        usuario = ResultSetToModelUtils<Usuario>.ToModel(sqlDataReader);
                 }
                 return usuario;
             }
@@ -179,8 +171,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                         sqlCommand.Parameters.AddWithValue("@nome", nome);
 
                         var sqlDataReader = sqlCommand.ExecuteReader();
-                        var resultSetToModel = new ResultSetToModel<Usuario>();
-                        usuario = resultSetToModel.ToModel(sqlDataReader, true);
+                        usuario = ResultSetToModelUtils<Usuario>.ToModel(sqlDataReader);
                     }
                 }
                 return usuario;

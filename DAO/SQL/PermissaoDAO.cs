@@ -33,8 +33,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
-                    var resultSetToModel = new ResultSetToModel<Permissao>();
-                    permissaos = resultSetToModel.ToListModel(sqlDataReader);
+                    permissaos = ResultSetToModelUtils<Permissao>.ToListModel(sqlDataReader);
                 }
                 return permissaos;
             }
@@ -61,8 +60,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
-                    var resultSetToModel = new ResultSetToModel<Permissao>();
-                    permissaos = resultSetToModel.ToListModel(sqlDataReader);
+                    permissaos = ResultSetToModelUtils<Permissao>.ToListModel(sqlDataReader);
                 }
                 return permissaos;
             }
@@ -86,8 +84,7 @@ namespace AppClassLibraryDomain.DAO.SQL
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
                     var sqlDataReader = sqlCommand.ExecuteReader();
 
-                    var resultSetToModel = new ResultSetToModel<Permissao>();
-                    permissaos = resultSetToModel.ToListModel(sqlDataReader);
+                    permissaos = ResultSetToModelUtils<Permissao>.ToListModel(sqlDataReader);
                 }
                 return permissaos;
             }
