@@ -142,6 +142,7 @@
     <Compile Include="DAO\IGenericDAO.cs" />
     <Compile Include="DAO\NHibernate\SessionFactoryImpl.cs" />
     <Compile Include="DAO\NHibernate\UsuarioNHibernateDAO.cs" />
+    <Compile Include="DAO\SQL\SistemaSQLDAO.cs" />
     <Compile Include="DAO\SQL\PermissaoDAO.cs" />
     <Compile Include="DAO\SQL\UsuarioSQLDAO.cs" />
     <Compile Include="exception\AlterarException.cs" />
