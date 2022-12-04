@@ -127,11 +127,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\ISistemaDAO.cs" />
     <Compile Include="DAO\IPermissaoDAO.cs" />
     <Compile Include="DAO\IUsuarioPermissaoDAO.cs" />
     <Compile Include="DAO\IUsuarioDAO.cs" />
     <Compile Include="DAO\memoria\ContatoMemoriaDAO.cs" />
     <Compile Include="DAO\NHibernate\PermissaoNHibernateDAO.cs" />
+    <Compile Include="DAO\NHibernate\SistemaNHibernateDAO.cs" />
     <Compile Include="DAO\NHibernate\UsuarioPermissaoNHibernateDAO.cs" />
     <Compile Include="DAO\SQL\ConnectionFactoryDAO.cs" />
     <Compile Include="DAO\SQL\ContatoDAO.cs" />
@@ -150,6 +152,8 @@
     <Compile Include="exception\SelecioneException.cs" />
     <Compile Include="model\Contato.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
+    <Compile Include="model\SistemaEnum.cs" />
+    <Compile Include="model\Sistema.cs" />
     <Compile Include="model\UsuarioPermissao.cs" />
     <Compile Include="model\Permissao.cs" />
     <Compile Include="model\Usuario.cs" />
@@ -159,6 +163,7 @@
     <Compile Include="service\ContatoService.cs" />
     <Compile Include="service\UsuarioPermissaoService.cs" />
     <Compile Include="service\PermissaoService.cs" />
+    <Compile Include="service\SistemaService.cs" />
     <Compile Include="service\UsuarioService.cs" />
     <Compile Include="utils\ResultSetToModelUtils.cs" />
   </ItemGroup>
@@ -166,21 +171,12 @@
     <EmbeddedResource Include="DAO\NHibernate\mapping\Contato.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Permissao.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioPermissao.hbm.xml" />
-    <Content Include="DDL\alter_column_id_table_usuarios.sql" />
+    <EmbeddedResource Include="DAO\NHibernate\mapping\Sistema.hbm.xml" />
     <Content Include="LICENSE.txt" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Usuario.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioFotoPerfil.hbm.xml" />
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
-    <Content Include="DDL\create_database.sql" />
-    <Content Include="DDL\create_table_permissoes.sql" />
-    <Content Include="DDL\create_table_usuarios.sql" />
-    <Content Include="DDL\create_table_usuarios_foto_perfil.sql" />
-    <Content Include="DDL\create_table_usuarios_permissoes.sql" />
-    <Content Include="DDL\create_user_database.sql" />
-    <Content Include="DDL\insert_10_usuarios.sql" />
-    <Content Include="DDL\insert_permissoes.sql" />
-    <Content Include="DML\SELECTs.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NuGet.config" />
