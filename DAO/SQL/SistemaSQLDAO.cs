@@ -12,9 +12,9 @@ namespace AppClassLibraryDomain.DAO.SQL
     /// </summary>
     public class SistemaSQLDAO : ISistemaDAO
     {
-        private String urlConnection;
+        private String _urlConnection;
 
-        public String UrlConnection { set => urlConnection = value; }
+        public String UrlConnection { set => _urlConnection = value; }
 
         public bool DeleteById(long? id) => throw new NotImplementedException();
 
@@ -32,7 +32,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             try
             {
                 var permissaos = new List<Sistema>();
-                using (var sqlConnection = new SqlConnection(urlConnection))
+                using (var sqlConnection = new SqlConnection(_urlConnection))
                 {
                     sqlConnection.Open();
                     var stringBuilder = new StringBuilder();

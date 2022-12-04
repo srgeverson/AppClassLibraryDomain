@@ -47,6 +47,8 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             .List<Permissao>()
             .FirstOrDefault();
 
+        public IList<Permissao> SelectByObject(Permissao instanceObject) => throw new NotImplementedException();
+
         public bool UpdateById(Permissao permissao)
         {
             if (permissao.Id == null)

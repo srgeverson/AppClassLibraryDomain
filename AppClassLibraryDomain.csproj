@@ -144,13 +144,16 @@
     <Compile Include="DAO\NHibernate\UsuarioNHibernateDAO.cs" />
     <Compile Include="DAO\SQL\SistemaSQLDAO.cs" />
     <Compile Include="DAO\SQL\PermissaoDAO.cs" />
+    <Compile Include="DAO\SQL\UsuarioPermissaoSQLDAO.cs" />
     <Compile Include="DAO\SQL\UsuarioSQLDAO.cs" />
     <Compile Include="exception\AlterarException.cs" />
+    <Compile Include="exception\AuthorizationServerException.cs" />
     <Compile Include="exception\ConexaoException.cs" />
     <Compile Include="exception\ExcluirException.cs" />
     <Compile Include="exception\InserirException.cs" />
     <Compile Include="exception\NegocioException.cs" />
     <Compile Include="exception\SelecioneException.cs" />
+    <Compile Include="facade\AuthorizationServerFacade.cs" />
     <Compile Include="model\Contato.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
     <Compile Include="model\SistemaEnum.cs" />

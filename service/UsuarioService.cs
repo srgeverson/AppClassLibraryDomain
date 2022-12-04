@@ -18,6 +18,7 @@ namespace AppClassLibraryDomain.service
         Usuario BuscarPorNome(string nome);
         UsuarioFotoPerfil CadastrarFoto(UsuarioFotoPerfil usuarioFotoPerfil);
         bool ValidarSenha(string senhaTexto, string senhaEncriptada);
+        bool? AtualizaDataUltimoAcesso(long? id);
     }
     #endregion
 
@@ -58,7 +59,7 @@ namespace AppClassLibraryDomain.service
         {
             return BCryptNet.Verify(senhaTexto, senhaEncriptada);
         }
-
+        public bool? AtualizaDataUltimoAcesso(long? id) => _usuarioDAO.UpdateDataUltimoAcessoById(id);
     }
     #endregion
 }

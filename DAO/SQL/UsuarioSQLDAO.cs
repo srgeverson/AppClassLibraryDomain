@@ -42,10 +42,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        public UsuarioFotoPerfil DeleteFoto(UsuarioFotoPerfil usuarioFotoPerfil)
-        {
-            throw new NotImplementedException();
-        }
+        public UsuarioFotoPerfil DeleteFoto(UsuarioFotoPerfil usuarioFotoPerfil) => throw new NotImplementedException();
 
         public Usuario Insert(Usuario usuario)
         {
@@ -80,10 +77,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        public UsuarioFotoPerfil InsertFoto(UsuarioFotoPerfil usuarioFotoPerfil)
-        {
-            throw new NotImplementedException();
-        }
+        public UsuarioFotoPerfil InsertFoto(UsuarioFotoPerfil usuarioFotoPerfil) => throw new NotImplementedException();
 
         public IList<Usuario> SelectAll()
         {
@@ -106,10 +100,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        public IList<Usuario> SelectByContainsProperties(Usuario instanceObject)
-        {
-            throw new NotImplementedException();
-        }
+        public IList<Usuario> SelectByContainsProperties(Usuario usuario) => throw new NotImplementedException();
 
         public Usuario SelectByEmail(string email)
         {
@@ -182,10 +173,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        public IList<Usuario> SelectByObject(Usuario instanceObject)
-        {
-            throw new NotImplementedException();
-        }
+        public IList<Usuario> SelectByObject(Usuario usuario) => throw new NotImplementedException();
 
         public bool UpdateById(Usuario usuario)
         {
@@ -225,10 +213,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        public Usuario UpdateByUsuario(Usuario usuario)
-        {
-            throw new NotImplementedException();
-        }
+        public Usuario UpdateByUsuario(Usuario usuario) => throw new NotImplementedException();
 
         public bool UpdateDataUltimoAcessoById(long? id)
         {

@@ -1,4 +1,5 @@
 ﻿using AppClassLibraryDomain.model;
+using System.Collections.Generic;
 
 namespace AppClassLibraryDomain.DAO
 {

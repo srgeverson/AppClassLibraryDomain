@@ -72,6 +72,8 @@ namespace AppClassLibraryDomain.DAO.NHibernate
                 .List<Usuario>().FirstOrDefault();
         }
 
+        public IList<Usuario> SelectByObject(Usuario instanceObject) => throw new NotImplementedException();
+
         public bool UpdateById(Usuario usuario)
         {
             _sessionFactoryImpl.OpenSession.SaveOrUpdate(usuario);

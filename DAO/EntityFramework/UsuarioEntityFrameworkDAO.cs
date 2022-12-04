@@ -46,6 +46,8 @@ namespace AppClassLibraryDomain.DAO.EntityFramework
 
         public Usuario SelectByNome(string nome) => _contextFactory.Usuarios.Where(usuario => usuario.Email.Equals(nome)).FirstOrDefault();
 
+        public IList<Usuario> SelectByObject(Usuario instanceObject) => throw new NotImplementedException();
+
         public bool UpdateById(Usuario instanceObject) => throw new NotImplementedException();
 
         public Usuario UpdateByUsuario(Usuario usuario)

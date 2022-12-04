@@ -39,6 +39,11 @@ namespace AppClassLibraryDomain.DAO.NHibernate
                 )
             .List<UsuarioPermissao>();
 
+        public IList<UsuarioPermissao> SelectByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public UsuarioPermissao SelectById(long? id) =>
             _sessionFactoryImpl
             .OpenSession
@@ -46,6 +51,11 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             .Add(Expression.Eq("id", id))
             .List<UsuarioPermissao>()
             .FirstOrDefault();
+
+        public IList<UsuarioPermissao> SelectByObject(UsuarioPermissao instanceObject)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool UpdateById(UsuarioPermissao usuarioPermissao)
         {

@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 
 namespace AppClassLibraryDomain.DAO.SQL
 {
+    #region Class
     /// <summary>
     /// Classe responsável por consultar os registros relacionados à tabela Permissaos.
     /// </summary>
-    public class PermissaoDAO
+    public class PermissaoDAO : IPermissaoDAO
     {
         private String urlConnection;
 
@@ -93,5 +94,20 @@ namespace AppClassLibraryDomain.DAO.SQL
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
+
+        public bool DeleteById(long? id) => throw new NotImplementedException();
+
+        public Permissao Insert(Permissao instanceObject) => throw new NotImplementedException();
+
+        public IList<Permissao> SelectAll() => throw new NotImplementedException();
+
+        public IList<Permissao> SelectByContainsProperties(Permissao instanceObject) => throw new NotImplementedException();
+
+        public Permissao SelectById(long? id) => throw new NotImplementedException();
+
+        public bool UpdateById(Permissao instanceObject) => throw new NotImplementedException();
+
+        public IList<Permissao> SelectByObject(Permissao instanceObject) => throw new NotImplementedException();
     }
+    #endregion
 }

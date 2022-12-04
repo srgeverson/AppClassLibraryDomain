@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using AppClassLibraryDomain.DAO;
+using AppClassLibraryDomain.DAO.SQL;
 using AppClassLibraryDomain.model;
 
 namespace AppClassLibraryDomain.service
 {
     #region Interface
     /// <summary>
-    /// Interface responsável por tratar dos dados cadastrais relacionados aos contatos.
+    /// Interface responsável por tratar dos dados cadastrais relacionados aos sistemas.
     /// </summary>
     public interface ISistemaService : IGenericService<Sistema, long?>
     {
@@ -24,6 +25,11 @@ namespace AppClassLibraryDomain.service
     {
         private ISistemaDAO _sistemaDAO;
         public ISistemaDAO SistemaDAO { set => _sistemaDAO = value; }
+        public SistemaService()
+        {
+            if (_sistemaDAO == null)
+                _sistemaDAO = new SistemaSQLDAO();
+        }
         public void Adicionar(Sistema sistema)
         {
             sistema.Ativo = true;
