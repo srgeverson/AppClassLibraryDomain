@@ -32,17 +32,9 @@ namespace AppClassLibraryDomain.facade
         private IPermissaoService _permissaoService;
         private IUsuarioPermissaoService _usuarioPermissaoService;
 
-        public AuthorizationServerFacade()
-        {
-            if (_usuarioService == null)
-                _usuarioService = new UsuarioService();
-
-            if (_permissaoService == null)
-                _permissaoService = new PermissaoService();
-
-            if (_usuarioPermissaoService == null)
-                _usuarioPermissaoService = new UsuarioPermissaoService();
-        }
+        public IUsuarioService UsuarioService { set => _usuarioService = value; }
+        public IPermissaoService PermissaoService { set => _permissaoService = value; }
+        public IUsuarioPermissaoService UsuarioPermissaoService { set => _usuarioPermissaoService = value; }
 
         public bool? AtualizaDataUltimoAcesso(long? id) => _usuarioService.AtualizaDataUltimoAcesso(id);
 
@@ -58,7 +50,8 @@ namespace AppClassLibraryDomain.facade
 
         public long[] PermissoesPorEmail(string email)
         {
-            long[] permissoesId = _usuarioPermissaoService.PermissoesPorEmail(email)
+            long[] permissoesId = _usuarioPermissaoService
+                .PermissoesPorEmail(email)
                 .Select(permissao => permissao.Id)
                 .ToList()
                 .ConvertAll(x => x.Value)

@@ -22,10 +22,12 @@ namespace AppClassLibraryDomain.service
 
         private IPermissaoDAO _permissaoDAO;
 
-        public PermissaoService()
-        {
-            _permissaoDAO = new PermissaoDAO();
-        }
+        public IPermissaoDAO PermissaoDAO { set => _permissaoDAO = value; }
+
+        //public PermissaoService()
+        //{
+        //    _permissaoDAO = new PermissaoDAO();
+        //}
 
         public List<Permissao> PermissoesPorNomeUsuario(string usuario) => throw new NotImplementedException();
 

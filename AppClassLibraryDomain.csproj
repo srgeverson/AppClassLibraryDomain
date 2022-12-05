@@ -147,6 +147,7 @@
     <Compile Include="DAO\SQL\UsuarioPermissaoSQLDAO.cs" />
     <Compile Include="DAO\SQL\UsuarioSQLDAO.cs" />
     <Compile Include="exception\AlterarException.cs" />
+    <Compile Include="exception\SistemaException.cs" />
     <Compile Include="exception\AuthorizationServerException.cs" />
     <Compile Include="exception\ConexaoException.cs" />
     <Compile Include="exception\ExcluirException.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="service\PermissaoService.cs" />
     <Compile Include="service\SistemaService.cs" />
     <Compile Include="service\UsuarioService.cs" />
+    <Compile Include="utils\EnumUtils.cs" />
     <Compile Include="utils\ResultSetToModelUtils.cs" />
   </ItemGroup>
   <ItemGroup>
