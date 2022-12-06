@@ -34,6 +34,9 @@ $ EntityFramework 6.4.4
 ### NHibernate ORM
 $ NHibernate 5.3.12
 
+### Gerador e validador de tokens
+$ JWT 9.0.3
+
 ```
 
 ```bash
