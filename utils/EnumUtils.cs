@@ -12,7 +12,7 @@ namespace AppClassLibraryDomain.utils
                 if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
                     if (attribute.Description.Equals(value))
                         return (T)field.GetValue(null);
-                    else if (field.Name == AppDomain.CurrentDomain.FriendlyName.Split('.')[0])
+                    else if (field.Name == value)
                         return (T)field.GetValue(null);
             }
             return default(T);

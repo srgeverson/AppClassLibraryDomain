@@ -58,6 +58,9 @@
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>C:\Windows\Temp\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="JWT, Version=9.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>..\..\Windows\Temp\JWT.9.0.3\lib\net46\JWT.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>C:\Windows\Temp\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
@@ -156,7 +159,10 @@
     <Compile Include="exception\SelecioneException.cs" />
     <Compile Include="facade\AuthorizationServerFacade.cs" />
     <Compile Include="model\Contato.cs" />
+    <Compile Include="model\DTO\ConfiguracaoTokenDTO.cs" />
+    <Compile Include="model\DTO\UsuarioLogadoDTO.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
+    <Compile Include="model\DTO\PayloadTokenDTO.cs" />
     <Compile Include="model\SistemaEnum.cs" />
     <Compile Include="model\Sistema.cs" />
     <Compile Include="model\UsuarioPermissao.cs" />
