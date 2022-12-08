@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AppClassLibraryDomain.model;
+using AppClassLibraryDomain.model.DTO;
 using NHibernate.Criterion;
 
 namespace AppClassLibraryDomain.DAO.NHibernate
@@ -40,6 +41,11 @@ namespace AppClassLibraryDomain.DAO.NHibernate
             .List<UsuarioPermissao>();
 
         public IList<UsuarioPermissao> SelectByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<UsuarioPermissaoDTO> SelectByEmailAndSistema(string email, string sistema)
         {
             throw new NotImplementedException();
         }

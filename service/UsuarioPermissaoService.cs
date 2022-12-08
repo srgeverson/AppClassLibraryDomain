@@ -1,6 +1,7 @@
 ﻿using AppClassLibraryDomain.DAO;
 using AppClassLibraryDomain.DAO.SQL;
 using AppClassLibraryDomain.model;
+using AppClassLibraryDomain.model.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,8 @@ namespace AppClassLibraryDomain.service
     /// </summary>
     public interface IUsuarioPermissaoService : IGenericService<UsuarioPermissao, long?>
     {
-        IList<UsuarioPermissao> PermissoesPorEmail(string email);
+        IList<UsuarioPermissao> PermissoesPorEmail(String email);
+        IList<UsuarioPermissaoDTO> PermissoesPorEmailESistema(String email, String sistema);
     }
     #endregion
 
@@ -47,9 +49,14 @@ namespace AppClassLibraryDomain.service
 
         public IList<UsuarioPermissao> ListarTodos() => throw new NotImplementedException();
 
-        public IList<UsuarioPermissao> PermissoesPorEmail(string email)
+        public IList<UsuarioPermissao> PermissoesPorEmail(String email)
         {
             return _usuarioPermissaoDAO.SelectByEmail(email);
+        }
+
+        public IList<UsuarioPermissaoDTO> PermissoesPorEmailESistema(String email, String sistema)
+        {
+            return _usuarioPermissaoDAO.SelectByEmailAndSistema(email, sistema);
         }
     }
     #endregion

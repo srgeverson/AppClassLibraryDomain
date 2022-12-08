@@ -9,6 +9,7 @@ using JWT.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Security;
 
 namespace AppClassLibraryDomain.facade
 {
@@ -22,12 +23,14 @@ namespace AppClassLibraryDomain.facade
         ConfiguracaoTokenDTO ValidarConfigucaoDoToken(String secret, String expired, String token, String app);
         bool? AtualizaDataUltimoAcesso(long? id);
         long[] PermissoesPorEmail(String email);
+        long[] PermissoesPorEmailESistema(String email, String sistema);
         Usuario CadastrarUsuario(Usuario usuario);
         IList<Usuario> ListarTodosUsuarios();
         UsuarioLogadoDTO GerarToken(Usuario usuario, ConfiguracaoTokenDTO configToken, long[] permissoesId);
         PayloadTokenDTO ValidarAcesso(ConfiguracaoTokenDTO configuracaoTokenDTO, String token, long[] roles);
         void ValidarSenha(String senha, Usuario usuario);
         bool ValidarToken(ConfiguracaoTokenDTO configuracaoTokenDTO, String token);
+        void ValidarRoles(long[] rolesEndPoint, long[] rolesUsuario);
     }
     #endregion
 
@@ -100,8 +103,29 @@ namespace AppClassLibraryDomain.facade
             return permissoesId;
         }
 
+        public long[] PermissoesPorEmailESistema(string email, string sistema)
+        {
+            var permissoesUsuario = _usuarioPermissaoService
+                .PermissoesPorEmailESistema(email, sistema);
+            long[] permissoesId = permissoesUsuario
+                .Select(permissao => permissao.Permissao)
+                .ToList()
+                .ConvertAll(x => x.Value)
+                .ToArray();
+            return permissoesId;
+        }
+
         public PayloadTokenDTO ValidarAcesso(ConfiguracaoTokenDTO configuracaoTokenDTO, string token, long[] roles)
         {
+            if (token == null)
+                throw new AuthorizationServerException(401, "Token não informado.");
+            var tokenSplit = token.Split(' ');
+            if (tokenSplit.Length != 2)
+                throw new AuthorizationServerException(401, "Token inválido.");
+            if (!tokenSplit[0].ToLower().Equals(configuracaoTokenDTO.Token.ToLower()))
+                throw new AuthorizationServerException(401, "Autenticação inválida.");
+            if (tokenSplit[1] == null || tokenSplit[1].Equals(""))
+                throw new AuthorizationServerException(401, "Token não inválido.");
             try
             {
                 IJsonSerializer serializer = new JsonNetSerializer();
@@ -111,7 +135,7 @@ namespace AppClassLibraryDomain.facade
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
                 IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
                 var key = Convert.FromBase64String(configuracaoTokenDTO.Secret);
-                var payloadToken = new JsonNetSerializer().Deserialize<PayloadTokenDTO>(decoder.Decode(token, key, verify: true));
+                var payloadToken = new JsonNetSerializer().Deserialize<PayloadTokenDTO>(decoder.Decode(tokenSplit[1], key, verify: true));
 
                 return payloadToken;
             }
@@ -125,19 +149,19 @@ namespace AppClassLibraryDomain.facade
         {
             var configuracaoTokenDTO = new ConfiguracaoTokenDTO();
             if (String.IsNullOrEmpty(secret))
-                throw new AuthorizationServerException("Não foi encontrado a chave secreta de validação do token.");
+                throw new AuthorizationServerException(401, "Não foi encontrado a chave secreta de validação do token.");
             else
                 configuracaoTokenDTO.Secret = secret;
 
             if (String.IsNullOrEmpty(expired))
-                throw new AuthorizationServerException("Não foi definido tempo de validação do token.");
+                throw new AuthorizationServerException(401, "Não foi definido tempo de validação do token.");
             else if (!int.TryParse(expired, out _))
-                throw new AuthorizationServerException("O tempo de validação do token não é inválido.");
+                throw new AuthorizationServerException(401, "O tempo de validação do token não é inválido.");
             else
                 configuracaoTokenDTO.Expired = Convert.ToDouble(expired);
 
             if (String.IsNullOrEmpty(token))
-                throw new AuthorizationServerException("Não foi definido tipo do token.");
+                throw new AuthorizationServerException(401, "Não foi definido tipo do token.");
             else
                 configuracaoTokenDTO.Token = token;
 
@@ -146,10 +170,17 @@ namespace AppClassLibraryDomain.facade
             return configuracaoTokenDTO;
         }
 
+        public void ValidarRoles(long[] rolesEndPoint, long[] rolesUsuario)
+        {
+            var rolesAcesso = from ru in rolesUsuario join re in rolesEndPoint on ru equals re select re;
+            if (!rolesAcesso.Any())
+                throw new AuthorizationServerException(String.Format("Acesso negado. Este usuário não tem a(s) permissão(ões): {0}.", String.Join(",", rolesEndPoint)));
+        }
+
         public void ValidarSenha(String senha, Usuario usuario)
         {
             if (!_usuarioService.ValidarSenha(senha, usuario.Senha))
-                throw new AuthorizationServerException("Não foi definido tempo de validação do token.");
+                throw new AuthorizationServerException("Dados de usuário inválido.");
         }
 
         public bool ValidarToken(ConfiguracaoTokenDTO configuracaoTokenDTO, String token)

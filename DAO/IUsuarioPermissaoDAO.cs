@@ -1,5 +1,7 @@
-﻿using AppClassLibraryDomain.model;
+﻿using System;
 using System.Collections.Generic;
+using AppClassLibraryDomain.model;
+using AppClassLibraryDomain.model.DTO;
 
 namespace AppClassLibraryDomain.DAO
 {
@@ -9,7 +11,8 @@ namespace AppClassLibraryDomain.DAO
     /// </summary>
     public interface IUsuarioPermissaoDAO : IGenericDAO<UsuarioPermissao, long?>
     {
-        IList<UsuarioPermissao> SelectByEmail(string email);
+        IList<UsuarioPermissao> SelectByEmail(String email);
+        IList<UsuarioPermissaoDTO> SelectByEmailAndSistema(String email, String sistema);
     }
     #endregion
 }

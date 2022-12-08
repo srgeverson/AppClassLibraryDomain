@@ -161,6 +161,7 @@
     <Compile Include="model\Contato.cs" />
     <Compile Include="model\DTO\ConfiguracaoTokenDTO.cs" />
     <Compile Include="model\DTO\UsuarioLogadoDTO.cs" />
+    <Compile Include="model\DTO\UsuarioPermissaoDTO.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
     <Compile Include="model\DTO\PayloadTokenDTO.cs" />
     <Compile Include="model\SistemaEnum.cs" />
