@@ -54,6 +54,8 @@ namespace AppClassLibraryDomain.facade
 
         public Usuario CadastrarUsuario(Usuario usuario)
         {
+            if (BuscarPorEmail(usuario.Email) != null)
+                throw new NegocioException(409, "Já existe usuário cadastrado com o e-mail informado.");
             _usuarioService.Adicionar(usuario);
             return usuario;
         }

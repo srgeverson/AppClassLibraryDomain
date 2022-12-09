@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AppClassLibraryDomain.utils;
 using AppClassLibraryDomain.model;
 using System.Data.SqlClient;
+using AppClassLibraryDomain.exception;
 
 namespace AppClassLibraryDomain.DAO.SQL
 {
@@ -71,9 +72,9 @@ namespace AppClassLibraryDomain.DAO.SQL
                 }
                 return usuario;
             }
-            catch (Exception ex)
+            catch (SqlException sqlex)
             {
-                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+                throw new NegocioException(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, sqlex.Message));
             }
         }
 
