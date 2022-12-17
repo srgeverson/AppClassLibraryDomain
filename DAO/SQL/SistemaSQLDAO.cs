@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AppClassLibraryDomain.utils;
 using AppClassLibraryDomain.model;
 using System.Data.SqlClient;
+using AppClassLibraryDomain.model.DTO;
 
 namespace AppClassLibraryDomain.DAO.SQL
 {
@@ -54,6 +55,11 @@ namespace AppClassLibraryDomain.DAO.SQL
             {
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
+        }
+
+        public IList<ObterFeriadoDTO> SelectFeriadoByAno(int ano)
+        {
+            throw new NotImplementedException();
         }
 
         public bool UpdateById(Sistema instanceObject) => throw new NotImplementedException();
