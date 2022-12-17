@@ -156,6 +156,7 @@
     <Compile Include="facade\AuthorizationServerFacade.cs" />
     <Compile Include="model\Contato.cs" />
     <Compile Include="model\DTO\ConfiguracaoTokenDTO.cs" />
+    <Compile Include="model\DTO\ObterFeriadoDTO.cs" />
     <Compile Include="model\DTO\UsuarioLogadoDTO.cs" />
     <Compile Include="model\DTO\UsuarioPermissaoDTO.cs" />
     <Compile Include="model\EntityFramework\Usuario.cs" />
@@ -178,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DAO\NHibernate\mapping\Contato.hbm.xml" />
+    <EmbeddedResource Include="DAO\NHibernate\mapping\FnObterFeriados.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Permissao.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioPermissao.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Sistema.hbm.xml" />

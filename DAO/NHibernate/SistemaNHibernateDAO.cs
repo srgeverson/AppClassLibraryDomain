@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AppClassLibraryDomain.model;
+using AppClassLibraryDomain.model.DTO;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace AppClassLibraryDomain.DAO.NHibernate
 {
@@ -67,7 +69,16 @@ namespace AppClassLibraryDomain.DAO.NHibernate
 
             return result.List<Sistema>();
         }
+        public IList<ObterFeriadoDTO> SelectFeriadoByAno(Int32 ano)
+        {
+            var listObterFeriadoDTO = _sessionFactoryImpl.OpenSession
+               .GetNamedQuery("obterFeriados")
+               .SetInt32("ano", ano)
+               .SetResultTransformer(Transformers.AliasToBean<ObterFeriadoDTO>())
+               .List<ObterFeriadoDTO>();
 
+            return listObterFeriadoDTO;
+        }
         public bool UpdateById(Sistema sistema)
         {
             if (sistema.Id == null)

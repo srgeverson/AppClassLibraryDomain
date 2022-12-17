@@ -1,4 +1,6 @@
 ﻿using AppClassLibraryDomain.model;
+using AppClassLibraryDomain.model.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace AppClassLibraryDomain.DAO
@@ -10,6 +12,7 @@ namespace AppClassLibraryDomain.DAO
     public interface ISistemaDAO : IGenericDAO<Sistema, long?>
     {
         IList<Sistema> SelectByObject(Sistema sistema);
+        IList<ObterFeriadoDTO> SelectFeriadoByAno(Int32 ano);
     }
     #endregion
 }
