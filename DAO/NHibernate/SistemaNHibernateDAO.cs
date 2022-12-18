@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using AppClassLibraryDomain.model;
 using AppClassLibraryDomain.model.DTO;
+using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Mapping;
 using NHibernate.Transform;
 
 namespace AppClassLibraryDomain.DAO.NHibernate
@@ -18,6 +20,25 @@ namespace AppClassLibraryDomain.DAO.NHibernate
         private SessionFactoryImpl _sessionFactoryImpl;
 
         public SessionFactoryImpl SessionFactoryImpl { set => _sessionFactoryImpl = value; }
+
+        public void CreateTableByName(String nome)
+        {
+            if (false)
+            {
+                IQuery query = _sessionFactoryImpl.OpenSession.CreateSQLQuery("EXEC Sp_Cria_Tabela @nome = :nome");
+                query.SetString("nome", nome);
+                var result = query.ExecuteUpdate();
+            }
+            else
+            {
+               var criaTabelaDTO = _sessionFactoryImpl.OpenSession
+              .GetNamedQuery("spCriaTabela")
+              .SetString("nome", nome)
+              .SetResultTransformer(Transformers.AliasToBean<CriaTabelaDTO>())
+              .List<CriaTabelaDTO>()
+              .FirstOrDefault();
+            }
+        }
 
         public bool DeleteById(long? id)
         {

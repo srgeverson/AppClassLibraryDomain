@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="AppClassLibraryDomain" namespace="AppClassLibraryDomain.model.DTO">
+	<sql-query name="spCriaTabela">
+		<return-scalar column="NumeroErro" type="Int32"/>
+		<return-scalar column="MensagemDeErro" type="String"/>
+		EXEC dbo.Sp_Cria_Tabela @nome = :nome
+	</sql-query>
+</hibernate-mapping>

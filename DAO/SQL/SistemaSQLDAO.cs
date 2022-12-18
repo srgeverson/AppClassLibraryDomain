@@ -17,6 +17,11 @@ namespace AppClassLibraryDomain.DAO.SQL
 
         public String UrlConnection { set => _urlConnection = value; }
 
+        public void CreateTableByName(String nome)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteById(long? id) => throw new NotImplementedException();
 
         public Sistema Insert(Sistema sistema) => throw new NotImplementedException();

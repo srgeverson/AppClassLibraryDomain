@@ -156,6 +156,7 @@
     <Compile Include="facade\AuthorizationServerFacade.cs" />
     <Compile Include="model\Contato.cs" />
     <Compile Include="model\DTO\ConfiguracaoTokenDTO.cs" />
+    <Compile Include="model\DTO\CriaTabelaDTO.cs" />
     <Compile Include="model\DTO\ObterFeriadoDTO.cs" />
     <Compile Include="model\DTO\UsuarioLogadoDTO.cs" />
     <Compile Include="model\DTO\UsuarioPermissaoDTO.cs" />
@@ -183,6 +184,7 @@
     <EmbeddedResource Include="DAO\NHibernate\mapping\Permissao.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioPermissao.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Sistema.hbm.xml" />
+    <EmbeddedResource Include="DAO\NHibernate\mapping\SpCriarTabela.hbm.xml" />
     <Content Include="LICENSE.txt" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\Usuario.hbm.xml" />
     <EmbeddedResource Include="DAO\NHibernate\mapping\UsuarioFotoPerfil.hbm.xml" />

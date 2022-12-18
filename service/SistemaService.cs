@@ -14,6 +14,7 @@ namespace AppClassLibraryDomain.service
     public interface ISistemaService : IGenericService<Sistema, long?>
     {
         IList<ObterFeriadoDTO> BuscarFeriadoPorAno(Int32 ano);
+        void CriarTabelaComNomeInformado(String nome);
         string Sistema(string nomeSistema);
     }
     #endregion
@@ -51,6 +52,11 @@ namespace AppClassLibraryDomain.service
             if (sistema == null)
                 throw new Exception("Aplicação não encontrada ou desativada");
             return String.Format("{0} - {1}", sistema.Id, sistema.Descricao);
+        }
+
+        public void CriarTabelaComNomeInformado(String nome)
+        {
+            _sistemaDAO.CreateTableByName(nome);
         }
     }
     #endregion
