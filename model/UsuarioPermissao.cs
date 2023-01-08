@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppClassLibraryDomain.model
 {
+    [Table("usuarios_permissoes")] //EF
     public class UsuarioPermissao
     {
         private long? id;
@@ -11,6 +14,7 @@ namespace AppClassLibraryDomain.model
         private DateTimeOffset? _dataCadastro;
         private DateTimeOffset? _dataOperacao;
 
+        [Key] //EF
         public virtual long? Id { get => id; set => id = value; }
         public virtual Permissao Permissao { get => _permissao; set => _permissao = value; }
         public virtual Usuario Usuario { get => _usuario; set => _usuario = value; }

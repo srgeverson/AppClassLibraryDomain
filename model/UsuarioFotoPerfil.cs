@@ -1,5 +1,9 @@
-﻿namespace AppClassLibraryDomain.model
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AppClassLibraryDomain.model
 {
+    [Table("usuarios_foto_perfil")] //EF
     public class UsuarioFotoPerfil
     {
         private long? _id;
@@ -8,7 +12,7 @@
         private string _mimeType;
         private string _caminho;
         private byte[] _arquivo;
-
+        [Key] //EF
         public virtual long? Id { get => _id; set => _id = value; }
         public virtual string Nome { get => _nome; set => _nome = value; }
         public virtual Usuario Usuario { get => _usuario; set => _usuario = value; }

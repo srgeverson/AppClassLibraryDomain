@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AppClassLibraryDomain.model.EntityFramework
 {
     [Table("usuarios")]
+    [Obsolete("Esta classe deve ser substituída pela classe AppClassLibraryDomain.model.Usuario")]
     public class Usuario
     {
         [Key]
