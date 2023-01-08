@@ -29,7 +29,13 @@ namespace AppClassLibraryDomain.service
     public class UsuarioService : IUsuarioService
     {
         private IUsuarioDAO _usuarioDAO;
+
+
         public IUsuarioDAO UsuarioDAO { set => _usuarioDAO = value; }
+        public UsuarioService(IUsuarioDAO usuarioDAO)
+        {
+            _usuarioDAO = usuarioDAO;
+        }
         public void Adicionar(Usuario usuario)
         {
             usuario.Ativo = true;

@@ -26,7 +26,14 @@ namespace AppClassLibraryDomain.service
     public class SistemaService : ISistemaService
     {
         private ISistemaDAO _sistemaDAO;
+
         public ISistemaDAO SistemaDAO { set => _sistemaDAO = value; }
+
+        public SistemaService(ISistemaDAO sistemaDAO)
+        {
+            _sistemaDAO = sistemaDAO;
+        }
+
         public void Adicionar(Sistema sistema)
         {
             sistema.Ativo = true;

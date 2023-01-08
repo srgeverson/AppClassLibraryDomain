@@ -17,10 +17,7 @@ namespace AppClassLibraryDomain.DAO.SQL
 
         public String UrlConnection { set => _urlConnection = value; }
 
-        public void CreateTableByName(String nome)
-        {
-            throw new NotImplementedException();
-        }
+        public void CreateTableByName(String nome) => throw new NotImplementedException();
 
         public bool DeleteById(long? id) => throw new NotImplementedException();
 
@@ -28,7 +25,7 @@ namespace AppClassLibraryDomain.DAO.SQL
 
         public IList<Sistema> SelectAll() => throw new NotImplementedException();
 
-        public IList<Sistema> SelectByContainsProperties(Sistema instanceObject) => throw new NotImplementedException();
+        public IList<Sistema> SelectByContainsProperties(Sistema sistema) => throw new NotImplementedException();
 
         public Sistema SelectById(long? id) => throw new NotImplementedException();
 
