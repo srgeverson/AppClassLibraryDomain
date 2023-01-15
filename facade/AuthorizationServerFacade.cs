@@ -31,6 +31,7 @@ namespace AppClassLibraryDomain.facade
         void ValidarSenha(String senha, Usuario usuario);
         bool ValidarToken(ConfiguracaoTokenDTO configuracaoTokenDTO, String token);
         void ValidarRoles(long[] rolesEndPoint, long[] rolesUsuario);
+        object BuscarUsuarioPorId(long id);
     }
     #endregion
 
@@ -44,6 +45,14 @@ namespace AppClassLibraryDomain.facade
         private IPermissaoService _permissaoService;
         private IUsuarioPermissaoService _usuarioPermissaoService;
 
+        public AuthorizationServerFacade() : base() { }
+        public AuthorizationServerFacade(IUsuarioService usuarioService, IPermissaoService permissaoService, IUsuarioPermissaoService usuarioPermissaoService) : base()
+        {
+            _usuarioService = usuarioService;
+            _permissaoService = permissaoService;
+            _usuarioPermissaoService = usuarioPermissaoService;
+        }
+
         public IUsuarioService UsuarioService { set => _usuarioService = value; }
         public IPermissaoService PermissaoService { set => _permissaoService = value; }
         public IUsuarioPermissaoService UsuarioPermissaoService { set => _usuarioPermissaoService = value; }
@@ -51,6 +60,11 @@ namespace AppClassLibraryDomain.facade
         public bool? AtualizaDataUltimoAcesso(long? id) => _usuarioService.AtualizaDataUltimoAcesso(id);
 
         public Usuario BuscarPorEmail(String email) => _usuarioService.BuscarPorEmail(email);
+
+        public object BuscarUsuarioPorId(long id)
+        {
+            throw new NotImplementedException();
+        }
 
         public Usuario CadastrarUsuario(Usuario usuario)
         {

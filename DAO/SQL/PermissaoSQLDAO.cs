@@ -11,13 +11,13 @@ namespace AppClassLibraryDomain.DAO.SQL
     /// <summary>
     /// Classe responsável por consultar os registros relacionados à tabela Permissaos.
     /// </summary>
-    public class PermissaoDAO : IPermissaoDAO
+    public class PermissaoSQLDAO : IPermissaoDAO
     {
         private String urlConnection;
 
         public String UrlConnection { set => urlConnection = value; }
 
-        public List<Permissao> SelectByNomeUsuario(string nomeUsuario)
+        public IList<Permissao> SelectByNomeUsuario(string nomeUsuario)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        internal List<Permissao> SelectByEmail(string email)
+        public IList<Permissao> SelectByEmail(string email)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace AppClassLibraryDomain.DAO.SQL
             }
         }
 
-        internal List<Permissao> Select()
+        public IList<Permissao> Select()
         {
             try
             {
@@ -99,7 +99,7 @@ namespace AppClassLibraryDomain.DAO.SQL
 
         public Permissao Insert(Permissao instanceObject) => throw new NotImplementedException();
 
-        public IList<Permissao> SelectAll() => throw new NotImplementedException();
+        public IList<Permissao> SelectAll() => Select();
 
         public IList<Permissao> SelectByContainsProperties(Permissao instanceObject) => throw new NotImplementedException();
 
