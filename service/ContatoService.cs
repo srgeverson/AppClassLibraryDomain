@@ -22,6 +22,8 @@ namespace AppClassLibraryDomain.service
 
         public IContatoDAO ContatoDAO { set => _contatoDAO = value; }
 
+        public ContatoService() : base() { }
+
         public void Adicionar(Contato contato)
         {
             try

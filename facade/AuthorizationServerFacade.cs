@@ -6,10 +6,14 @@ using JWT;
 using JWT.Algorithms;
 using JWT.Exceptions;
 using JWT.Serializers;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Web.Security;
+using System.Security.Claims;
+using System.Text;
 
 namespace AppClassLibraryDomain.facade
 {
@@ -27,6 +31,7 @@ namespace AppClassLibraryDomain.facade
         Usuario CadastrarUsuario(Usuario usuario);
         IList<Usuario> ListarTodosUsuarios();
         UsuarioLogadoDTO GerarToken(Usuario usuario, ConfiguracaoTokenDTO configToken, long[] permissoesId);
+        string GerarTokenNetCore(Usuario usuario, ConfiguracaoTokenDTO configToken, long[] permissoesId);
         PayloadTokenDTO ValidarAcesso(ConfiguracaoTokenDTO configuracaoTokenDTO, String token, long[] roles);
         void ValidarSenha(String senha, Usuario usuario);
         bool ValidarToken(ConfiguracaoTokenDTO configuracaoTokenDTO, String token);
@@ -105,7 +110,24 @@ namespace AppClassLibraryDomain.facade
                 Mensagem = "Usuário autorizado"
             };
         }
-
+        public string GerarTokenNetCore(Usuario usuario, ConfiguracaoTokenDTO configToken, long[] permissoesId)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(configToken.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, usuario.Nome.ToString()),
+                    //new Claim(ClaimTypes.Role, string.Join(",",permissoesId.ToArray()))
+                    new Claim(ClaimTypes.Role, "1")
+                }),
+                Expires = DateTime.UtcNow.AddSeconds(configToken.Expired),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
         public IList<Usuario> ListarTodosUsuarios() => _usuarioService.ListarTodos();
 
         public long[] PermissoesPorEmail(String email)

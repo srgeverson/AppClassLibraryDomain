@@ -30,6 +30,7 @@ namespace AppClassLibraryDomain.service
     {
         private IUsuarioDAO _usuarioDAO;
         public IUsuarioDAO UsuarioDAO { set => _usuarioDAO = value; }
+        public UsuarioService() : base() { }
         public UsuarioService(IUsuarioDAO usuarioDAO)
         {
             _usuarioDAO = usuarioDAO;

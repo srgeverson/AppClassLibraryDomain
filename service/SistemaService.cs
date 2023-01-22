@@ -28,7 +28,7 @@ namespace AppClassLibraryDomain.service
         private ISistemaDAO _sistemaDAO;
 
         public ISistemaDAO SistemaDAO { set => _sistemaDAO = value; }
-
+        public SistemaService() : base() { }
         public SistemaService(ISistemaDAO sistemaDAO)
         {
             _sistemaDAO = sistemaDAO;

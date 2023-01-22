@@ -26,14 +26,13 @@ namespace AppClassLibraryDomain.service
     {
 
         private IUsuarioPermissaoDAO _usuarioPermissaoDAO;
+        public UsuarioPermissaoService() : base() { }
+        public UsuarioPermissaoService(IUsuarioPermissaoDAO usuarioPermissaoDAO)
+        {
+            _usuarioPermissaoDAO = usuarioPermissaoDAO;
+        }
 
         public IUsuarioPermissaoDAO UsuarioPermissaoDAO { set => _usuarioPermissaoDAO = value; }
-
-        //public UsuarioPermissaoService()
-        //{
-        //    if (_usuarioPermissaoDAO == null)
-        //        _usuarioPermissaoDAO = new UsuarioPermissaoSQLDAO();
-        //}
 
         public void Adicionar(UsuarioPermissao usuarioPermissao) => throw new NotImplementedException();
 
