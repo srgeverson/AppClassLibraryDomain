@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AppClassLibraryDomain.service.SistemaService" Collapsed="true" HideInheritanceLine="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACgAAAAEAABBBgAAAAAAIAAAAAgAAAAAAIA=</HashCode>
+      <FileName>service\SistemaService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AppClassLibraryDomain.DAO.SQL.SistemaSQLDAO" Collapsed="true" HideInheritanceLine="true">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAACAAAAAAAABAAAAAICAAAAAAgACAAACCAAA=</HashCode>
+      <FileName>DAO\SQL\SistemaSQLDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="8.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="AppClassLibraryDomain.service.IGenericService&lt;T, K&gt;" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAEAABABgAAAAAAAAAAAAgAAAAAAIA=</HashCode>
+      <FileName>service\IGenericService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AppClassLibraryDomain.service.ISistemaService" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAABAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>service\SistemaService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AppClassLibraryDomain.DAO.IGenericDAO&lt;T, K&gt;" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAACAAAAAAAABAAAAAACAAAAAAAAAAAACCAAA=</HashCode>
+      <FileName>DAO\IGenericDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AppClassLibraryDomain.DAO.ISistemaDAO" Collapsed="true">
+    <Position X="5.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAA=</HashCode>
+      <FileName>DAO\ISistemaDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -207,6 +207,7 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="NuGet.config" />
     <None Include="packages.config" />
     <None Include="SharedLibs\nhibernate-mapping.xsd">
