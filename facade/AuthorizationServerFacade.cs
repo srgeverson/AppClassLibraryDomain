@@ -40,7 +40,7 @@ namespace AppClassLibraryDomain.facade
     }
     #endregion
 
-    #region Interface
+    #region Class
     /// <summary>
     /// Classe que implementa a Autorização de Aplicação
     /// </summary>
